@@ -1,0 +1,2 @@
+# HTTP → HTTPS만 강제 (도메인 정규화는 Netlify가 수행)
+http://*  https://:splat  301!
