@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://example.com/index.html</loc></url>
-  <url><loc>https://example.com/services.html</loc></url>
-  <url><loc>https://example.com/fleet.html</loc></url>
-  <url><loc>https://example.com/industries.html</loc></url>
-  <url><loc>https://example.com/greeting.html</loc></url>
-  <url><loc>https://example.com/about.html</loc></url>
-  <url><loc>https://example.com/cert.html</loc></url>
-  <url><loc>https://example.com/faq.html</loc></url>
-  <url><loc>https://example.com/contact.html</loc></url>
+  <url><loc>https://www.jongwoon.co.kr/</loc></url>
+  <url><loc>https://www.jongwoon.co.kr/services.html</loc></url>
+  <url><loc>https://www.jongwoon.co.kr/fleet.html</loc></url>
+  <url><loc>https://www.jongwoon.co.kr/industries.html</loc></url>
+  <url><loc>https://www.jongwoon.co.kr/greeting.html</loc></url>
+  <url><loc>https://www.jongwoon.co.kr/about.html</loc></url>
+  <url><loc>https://www.jongwoon.co.kr/cert.html</loc></url>
+  <url><loc>https://www.jongwoon.co.kr/faq.html</loc></url>
+  <url><loc>https://www.jongwoon.co.kr/contact.html</loc></url>
 </urlset>
