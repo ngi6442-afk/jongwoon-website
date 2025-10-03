@@ -1,2 +1,6 @@
-# HTTP → HTTPS만 강제 (도메인 정규화는 Netlify가 수행)
-http://*  https://:splat  301!
+# http -> https
+http://*  https://:splat 301!
+
+# apex(루트) -> www (https로 통일)
+https://jongwoon.co.kr/*  https://www.jongwoon.co.kr/:splat 301!
+http://jongwoon.co.kr/*   https://www.jongwoon.co.kr/:splat 301!
