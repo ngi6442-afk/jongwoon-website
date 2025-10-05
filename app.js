@@ -54,3 +54,50 @@ document.addEventListener('click', function(e){
     if (window.gtag) gtag('event', 'email_click', { method: 'mailto_link' });
   }
 }, false);
+
+// --- 연혁 사진 슬라이드 ---
+(function(){
+  const track = document.querySelector('.history-slider .hs-track');
+  if(!track) return;
+  const imgs = [...track.querySelectorAll('.hs-item')];
+  let idx = 0;
+  const show = i => {
+    imgs.forEach((el,j)=> el.classList.toggle('active', j===i));
+  };
+  show(idx);
+  document.querySelector('.history-slider .prev').addEventListener('click', ()=>{
+    idx = (idx - 1 + imgs.length) % imgs.length; show(idx);
+  });
+  document.querySelector('.history-slider .next').addEventListener('click', ()=>{
+    idx = (idx + 1) % imgs.length; show(idx);
+  });
+})();
+
+// --- 라이트박스 ---
+(function(){
+  const box = document.getElementById('lightbox');
+  if(!box) return;
+  const img = document.getElementById('lb-img');
+  const cap = document.getElementById('lb-cap');
+  const open = (src, alt) => {
+    img.src = src; img.alt = alt || '';
+    cap.textContent = alt || '';
+    box.classList.add('open');
+    box.setAttribute('aria-hidden','false');
+  };
+  const close = () => {
+    box.classList.remove('open');
+    box.setAttribute('aria-hidden','true');
+    img.src = '';
+  };
+  document.querySelectorAll('.gallery .g-item').forEach(a=>{
+    a.addEventListener('click', e=>{
+      e.preventDefault();
+      const i = a.querySelector('img');
+      open(a.getAttribute('href'), i?.getAttribute('alt') || '');
+    });
+  });
+  box.querySelector('.lb-close').addEventListener('click', close);
+  box.querySelector('.lb-backdrop').addEventListener('click', close);
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') close(); });
+})();

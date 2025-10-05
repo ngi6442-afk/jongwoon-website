@@ -39,13 +39,26 @@
     <div class="breadcrumbs"><a href="index.html">홈</a> · 인증/허가</div>
 
     <section class="section">
-      <div class="badge-grid">
-        <span class="badge lg" title="폐기물 수집·운반 허가">폐기물 수집·운반 허가</span>
-        <span class="badge lg" title="폐기물 종합재활용업 허가">폐기물 종합재활용업 허가</span>
+      <h2 class="section-title">인증·허가 갤러리</h2>
+      <div class="grid gallery">
+        <!-- 썸네일/원본 경로를 실제 파일로 교체 -->
+        <a href="img/cert-1.jpg" class="g-item"><img src="img/cert-1-thumb.jpg" alt="사업자등록증"></a>
+        <a href="img/cert-2.jpg" class="g-item"><img src="img/cert-2-thumb.jpg" alt="수집·운반 허가증"></a>
+        <a href="img/cert-3.jpg" class="g-item"><img src="img/cert-3-thumb.jpg" alt="재활용업 허가증"></a>
+        <!-- 필요만큼 반복 -->
       </div>
-      <p class="muted">※ 상세 증빙은 ‘회사 소개’ 메뉴 또는 별도 요청 시 제공</p>
     </section>
-  </main>
+
+    <!-- 라이트박스 모달 -->
+    <div id="lightbox" class="lightbox" aria-hidden="true">
+      <div class="lb-backdrop"></div>
+      <figure class="lb-figure">
+        <img id="lb-img" alt="">
+        <figcaption id="lb-cap"></figcaption>
+        <button class="lb-close" aria-label="닫기">×</button>
+      </figure>
+    </div>
+
 
   <footer class="site-footer">
     <div class="footer-inner">
