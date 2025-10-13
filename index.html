@@ -4,117 +4,63 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>유한회사 종운환경</title>
-
-  <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5EZNPJLRN2"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date()); gtag('config', 'G-5EZNPJLRN2');
-  </script>
-
-  <meta name="description" content="전국 폐기물 수집·운반, 종합재활용, 하수준설·하수관로 조사 전문. 적재적소 장비 운용과 환경법규 엄수로 24시간 대응하는 유한회사 종운환경.">
-  <link rel="canonical" href="https://www.jongwoon.co.kr/index.html">
-  <link rel="stylesheet" href="styles.css"/>
-  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2000&auto=format&fit=crop">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="유한회사 종운환경">
-  <meta property="og:image" content="https://www.jongwoon.co.kr/img/og-card.jpg">
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Organization",
-    "name":"유한회사 종운환경",
-    "url":"https://www.jongwoon.co.kr/",
-    "logo":"https://www.jongwoon.co.kr/img/logo-v2.png",
-    "contactPoint":[{
-      "@type":"ContactPoint",
-      "telephone":"+82-54-291-1202",
-      "contactType":"customer service",
-      "areaServed":"KR",
-      "availableLanguage":["Korean"]
-    }]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"LocalBusiness",
-    "name":"유한회사 종운환경",
-    "image":"https://www.jongwoon.co.kr/img/og-card.jpg",
-    "url":"https://www.jongwoon.co.kr/",
-    "telephone":"+82-54-291-1202",
-    "address":{
-      "@type":"PostalAddress",
-      "addressCountry":"KR",
-      "addressRegion":"경상북도",
-      "addressLocality":"포항시 남구",
-      "streetAddress":"서원재로 1"
-    },
-    "openingHoursSpecification":[{
-      "@type":"OpeningHoursSpecification",
-      "dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-      "opens":"00:00",
-      "closes":"24:00"
-    }],
-    "areaServed":"KR"
-  }
-  </script>
+  <meta name="description" content="전국 폐기물 수집·운반, 종합재활용, 하수준설·하수관로 조사 전문. 24시간 대응하는 유한회사 종운환경.">
+  <link rel="stylesheet" href="css/styles.css"/>
+  <link rel="preload" as="image" href="img/hero/hero-slide-01.jpg">
 </head>
-<body>
-  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
-
-  <header>
-    <div class="topbar">
-      <div class="logo">
-        <img src="img/logo-v2.png" alt="유한회사 종운환경 로고">
-        <span>유한회사 종운환경</span>
-      </div>
-      <nav class="main">
-        <a href="index.html">홈</a>
-        <a href="services.html">서비스</a>
-        <a href="fleet.html">차량/장비</a>
-        <a href="industries.html">고객군</a>
-        <a href="greeting.html">대표 인사말</a>
-        <a href="about.html">회사 소개</a>
-        <a href="cert.html">인증/허가</a>
-        <a href="faq.html">FAQ</a>
-        <a href="contact.html">문의/위치</a>
-      </nav>
-    </div>
-  </header>
+<body class="bg-main">
+  <header class="include-header"></header>
 
   <main id="main">
-    <section class="hero" style="background:url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat">
-      <h1>전국 폐기물·하수관·준설 전문 파트너</h1>
-      <p>적재적소 차량 보유 · 환경법규 엄수 · 24시간 전국 서비스</p>
-      <p style="margin-top:12px">
-        <a class="btn primary" href="services.html">서비스 보기</a>
-        <a class="btn" href="fleet.html">차량/장비</a>
-        <a class="btn" href="contact.html">문의/위치</a>
-        <a class="btn" target="_blank" rel="noopener noreferrer" href="http://pf.kakao.com/_Txgsen">💬 카카오 상담</a>
-      </p>
-    </section>
+    <div id="hero-slider" class="hero-slider">
+        <div class="hs-track">
+            <div class="hs-item active">
+                <div class="hs-bg" style="background-image:url(img/hero/hero-slide-01.jpg);"></div>
+            </div>
+            <div class="hs-item">
+                <div class="hs-bg" style="background-image:url(img/hero/hero-slide-02.jpg);"></div>
+            </div>
+            <div class="hs-item">
+                <div class="hs-bg" style="background-image:url(img/hero/hero-slide-03.jpg);"></div>
+            </div>
+        </div>
+        <div class="hs-content container">
+            <h1>전국 폐기물, 하수관, 준설<br>전문 파트너</h1>
+            <p>정확한 진단, 신속한 대응, 법규 준수 중심의<br>종합 환경 서비스 파트너 종운환경입니다.</p>
+            <p style="margin-top:20px;">
+                <a class="btn primary" href="services.html">서비스 보기</a>
+                <a class="btn" href="fleet.html">차량/장비</a>
+                <a class="btn" href="contact.html">문의/위치</a>
+                <a class="btn" target="_blank" rel="noopener noreferrer" href="http://pf.kakao.com/_Txgsen">💬 카카오 상담</a>
+            </p>
+        </div>
+        <button class="hs-btn prev" aria-label="이전 슬라이드">&larr;</button>
+        <button class="hs-btn next" aria-label="다음 슬라이드">&rarr;</button>
+    </div>
 
-    <section class="section">
+    <section class="section container">
       <h2>한눈에 보기</h2>
-      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
+      <div class="service-grid">
         <div class="card">
+          <div class="icon-wrapper"><img src="img/icon1.png" alt="폐기물 수집·운반 아이콘" class="service-icon-rect"></div>
           <h3>폐기물 수집·운반</h3>
           <p>사업장·건설·지정·생활계</p>
-          <p><a href="services.html" class="btn">자세히</a></p>
+          <p><a href="services.html#collect" class="btn">자세히</a></p>
         </div>
         <div class="card">
+          <div class="icon-wrapper"><img src="img/icon3.png" alt="종합재활용 아이콘" class="service-icon-square"></div>
           <h3>종합재활용</h3>
           <p>폐석고·골재·광재</p>
           <p><a href="services.html#recycle" class="btn">자세히</a></p>
         </div>
         <div class="card">
+          <div class="icon-wrapper"><img src="img/icon2.png" alt="하수준설·설비 아이콘" class="service-icon-rect"></div>
           <h3>하수준설·설비</h3>
           <p>대용량 장비</p>
           <p><a href="services.html#sewer" class="btn">자세히</a></p>
         </div>
         <div class="card">
+          <div class="icon-wrapper"><img src="img/icon4.png" alt="하수관로 조사 아이콘" class="service-icon-square"></div>
           <h3>하수관로 조사</h3>
           <p>CCTV 정확 진단</p>
           <p><a href="services.html#cctv" class="btn">자세히</a></p>
@@ -123,22 +69,8 @@
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <p class="footer-info">
-        본사  (우)37859 경상북도 포항시 남구 서원재로 1 <br>
-        전화번호 <a href="tel:+82542911202">054-291-1202</a> / <a href="tel:+82542911204">054-291-1204</a><br>
-        이메일 <a href="mailto:jongwoon1202@daum.net">jongwoon1202@daum.net</a> ｜ 영업시간: 00:00~24:00
-      </p>
-      <div class="footer-links">
-        <a href="privacy.html">개인정보처리방침</a>
-        <span class="sep">|</span>
-        <a href="terms.html">이용약관</a>
-      </div>
-      <p class="footer-copy">© <script>document.write(new Date().getFullYear())</script> Copyright ⓒ 2025 JONGWOON. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <script src="app.js"></script>
+  <footer class="include-footer"></footer>
+  <script src="js/include.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>

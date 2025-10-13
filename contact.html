@@ -4,101 +4,30 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>문의/위치 - 유한회사 종운환경</title>
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5EZNPJLRN2"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-5EZNPJLRN2');</script>
-
-  <meta name="description" content="문의/견적 요청 및 위치 안내. 카카오톡 채널·이메일·전화로 24시간 상담 가능합니다.">
-  <link rel="canonical" href="https://www.jongwoon.co.kr/contact.html">
-  <link rel="stylesheet" href="styles.css"/>
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="유한회사 종운환경">
-  <meta property="og:image" content="https://www.jongwoon.co.kr/img/og-card.jpg">
+  <link rel="stylesheet" href="/css/styles.css"/>
 </head>
-<body>
+<body class="bg-contact">
   <a class="skip-link" href="#main">본문으로 건너뛰기</a>
-
-  <header>
-    <div class="topbar">
-      <div class="logo"><img src="img/logo-v2.png" alt="유한회사 종운환경 로고"><span>유한회사 종운환경</span></div>
-      <nav class="main">
-        <a href="index.html">홈</a>
-        <a href="services.html">서비스</a>
-        <a href="fleet.html">차량/장비</a>
-        <a href="industries.html">고객군</a>
-        <a href="greeting.html">대표 인사말</a>
-        <a href="about.html">회사 소개</a>
-        <a href="cert.html">인증/허가</a>
-        <a href="faq.html">FAQ</a>
-        <a href="contact.html">문의/위치</a>
-      </nav>
-    </div>
-  </header>
+  <header class="include-header"></header>
 
   <main id="main" class="container">
-    <div class="breadcrumbs"><a href="index.html">홈</a> · 문의/위치</div>
+    <div class="breadcrumbs"><a href="/index.html">홈</a> · 고객지원</div>
 
-    <div class="grid" style="grid-template-columns:1fr 1fr;gap:16px">
-      <section class="card">
-        <h3 style="margin-top:0">연락처</h3>
-        <p><b>카카오톡 상담</b>:
-          <a href="http://pf.kakao.com/_Txgsen" target="_blank" rel="noopener noreferrer">pf.kakao.com/_Txgsen</a>
-        </p>
-        <p><b>대표 이메일</b>:
-          <a href="mailto:jongwoon1202@daum.net">jongwoon1202@daum.net</a>
-        </p>
-        <p><b>대표 전화</b>: <a href="tel:+82542911204">054-291-1202/4</a></p>
-        <p><b>주소</b>: 경상북도 포항시 남구 서원재로 1</p>
-        <p><b>영업시간</b>: 00:00 ~ 24:00 (연중무휴)</p>
-      </section>
-
-      <section class="card">
-        <h3 style="margin-top:0">📍 네이버 지도 보기</h3>
-        <p><a class="btn" target="_blank" rel="noopener noreferrer"
-              href="https://map.naver.com/p/search/%EC%A2%85%EC%9A%B4%ED%99%98%EA%B2%BD/place/499227851">네이버 지도 열기</a></p>
-      </section>
-    </div>
-
-    <section class="card" style="margin-top:16px;max-width:680px">
-      <h3 style="margin-top:0">빠른 문의</h3>
-      <!-- Netlify Forms -->
-      <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-        <input type="hidden" name="form-name" value="contact">
-        <p style="display:none"><label>Don’t fill this out if you're human: <input name="bot-field"></label></p>
-
-        <label>성함<br>
-          <input type="text" name="name" required style="width:100%;padding:10px;border:1px solid var(--line);border-radius:10px">
-        </label><br><br>
-
-        <label>연락처/이메일<br>
-          <input type="text" name="contact" required style="width:100%;padding:10px;border:1px solid var(--line);border-radius:10px">
-        </label><br><br>
-
-        <label>문의 내용<br>
-          <textarea name="message" rows="5" required style="width:100%;padding:10px;border:1px solid var(--line);border-radius:10px"></textarea>
-        </label><br><br>
-
-        <button class="btn primary" type="submit">문의 보내기</button>
-      </form>
+    <section class="card" style="margin-top:16px;">
+      <h3 style="margin-top:0">연락처 및 상담 안내</h3>
+      <p>전화, 카카오톡, 이메일을 통해 24시간 문의에 대응하고 있습니다.</p>
+      <ul class="list">
+          <li><b>카카오톡 상담</b>: <a href="http://pf.kakao.com/_Txgsen" target="_blank" rel="noopener noreferrer">pf.kakao.com/_Txgsen</a></li>
+          <li><b>대표 이메일</b>: <a href="mailto:jongwoon1202@daum.net">jongwoon1202@daum.net</a></li>
+          <li><b>대표 전화</b>: <a href="tel:+82542911204">054-291-1202 / 4</a></li>
+          <li><b>주소</b>: 경상북도 포항시 남구 서원재로 1</li>
+          <li><b>영업시간</b>: 00:00 ~ 24:00 (연중무휴)</li>
+      </ul>
     </section>
   </main>
-
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <p class="footer-info">
-        본사  (우)37859 경상북도 포항시 남구 서원재로 1 <br>
-        전화번호 <a href="tel:+82542911202">054-291-1202</a> / <a href="tel:+82542911204">054-291-1204</a><br>
-        이메일 <a href="mailto:jongwoon1202@daum.net">jongwoon1202@daum.net</a> ｜ 영업시간: 00:00~24:00
-      </p>
-      <div class="footer-links">
-        <a href="privacy.html">개인정보처리방침</a>
-        <span class="sep">|</span>
-        <a href="terms.html">이용약관</a>
-      </div>
-      <p class="footer-copy">© <script>document.write(new Date().getFullYear())</script> Copyright ⓒ 2025 JONGWOON. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <script src="app.js"></script>
+  
+  <footer class="include-footer"></footer>
+  <script src="/js/include.js"></script>
+  <script src="/js/app.js"></script>
 </body>
 </html>
