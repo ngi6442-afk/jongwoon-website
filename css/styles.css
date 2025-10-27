@@ -1,3 +1,7 @@
+/* --- FONTS --- */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@800&display=swap');
+/* :root 변수 수정 */
 :root {
   --brand: #1A9A6B;
   --text: #333;
@@ -5,26 +9,32 @@
   --line: #e6edf3;
   --bg-light: #F7F9F8;
   --footer-bg: #2c3e50;
-  --menu-grid-width: 580px;
-  --menu-grid-gap: 40px; 
-  --menu-grid-cols: 1fr 1fr 1fr;
 }
 *{box-sizing:border-box} html,body{margin:0;padding:0}
 body::before { content: ''; display: block; height: 4px; background-color: var(--brand); }
-body{font:16px/1.6 system-ui,sans-serif;color:var(--text);background:#fff}
+/* Pretendard 폰트 기본 적용 */
+body{
+  font-family: 'Pretendard', system-ui, sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  color:var(--text);
+  background:#fff;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: inherit;
+}
 a{color:var(--brand);text-decoration:none} a:hover{text-decoration:underline}
 img{max-width:100%;height:auto;display:block}
 .container{max-width:1080px;margin:0 auto;padding:20px}
 .skip-link { display: none; }
 
-/* --- HEADER (최종 수정) --- */
+/* --- HEADER (최종 수정본) --- */
 
 .topbar{
   position:sticky; top:0; z-index:10; background: #fff;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 .util-bar {
-    /* 3. 최대 너비 제한 및 중앙 정렬 */
     max-width: 1080px;
     margin: 0 auto;
     padding: 4px 20px;
@@ -35,35 +45,47 @@ img{max-width:100%;height:auto;display:block}
 .util-nav a { color: var(--text); margin-left: 15px; }
 
 .main-header-row {
-    /* 2. 최대 너비 제한 및 중앙 정렬 */
     max-width: 1080px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: auto 1fr; /* 로고와 메뉴 영역 분리 */
+    grid-template-columns: auto 1fr;
     align-items: center;
-    gap: 80px; /* 1. 로고와 메뉴 간격 넓힘 */
+    gap: 100px;
     padding: 10px 20px;
     position: relative;
 }
 .logo { 
-    display:flex;align-items:center;gap:12px;font-weight:700; font-size: 1.1rem;
+    display:flex;align-items:center;gap:5px
 }
-.logo img{ width:50px; height:50px; }
+.logo span {
+    font-family: 'Pretendard', serif;
+    font-weight: 800; /* ExtraBold */
+    font-size: 1.1rem;
+    line-height: 1.4;
+    white-space: nowrap;
+    color: #153485
+}
+.logo img{ width:80px; height:80px; }
 
 .nav-container {
-    justify-self: center; /* 메뉴 그룹을 할당된 공간 중앙에 배치 */
+    justify-self: stretch; 
     position: relative;
 }
 .main-nav > ul {
-    list-style: none; margin: 0; padding: 0;
+    list-style: none; margin: 0; 
     display: grid;
-    width: var(--menu-grid-width);
-    grid-template-columns: var(--menu-grid-cols);
-    gap: var(--menu-grid-gap);
+    /* 조건 5, 7: 4개 열을 항상 동일한 비율로 유연하게 분할 */
+    grid-template-columns: repeat(4, 1fr);
+    /* B-A 간격을 위해 좌우 여백 추가 */
+    padding: 0 25px; 
 }
 .main-nav > ul > li > a {
-    display: block; padding: 10px 0; font-weight: 700; font-size: 17px; color: var(--text);
-    white-space: nowrap; text-align: left;
+    display: block; padding: 10px 0;
+    /* 폰트 가이드 적용: GNB는 SemiBold(600) */
+    font-weight: 600;
+    font-size: 17px; color: var(--text);
+    white-space: nowrap; 
+    text-align: left;
 }
 .nav-container:hover .main-nav a { 
     color: var(--brand);
@@ -72,37 +94,47 @@ img{max-width:100%;height:auto;display:block}
     color: var(--brand); box-shadow: 0 2px 0 var(--brand);
 }
 
-
 .submenu-panel {
     position: absolute; 
     top: 100%;
-    left: 46%;
-    transform: translateX(-50%);
-    padding-top: 15px;
+    /* B라인(패널 시작점)을 정렬하기 위해 nav-container 전체에 걸치도록 설정 */
+    left: 0;
+    right: 0;
+    padding-top: 10px;
     opacity: 0; visibility: hidden;
     pointer-events: none;
     transition: opacity 0.2s ease, transform 0.2s ease;
+    transform: translateY(-10px);
 }
 .nav-container:hover .submenu-panel { 
     opacity: 1; visibility: visible; 
-    transform: translate(-50%, 0); 
+    transform: translateY(0); 
     pointer-events: auto; 
 }
 .submenu-wrapper {
     display: grid;
-    width: var(--menu-grid-width) + 20px;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 85px;
-    padding: 20px; /* 세로너비 */
+    /* 조건 4, 5: 메인 메뉴와 동일한 비율로 설정하여 A라인 일치 */
+    grid-template-columns: repeat(4, 1fr);
+    /* B-A 간격을 위해 메인 메뉴와 동일한 좌우 여백 적용 */
+    padding: 20px 25px;
     background-color: #fff;
     border: 1px solid var(--line);
     box-shadow: 0 8px 16px rgba(0,0,0,0.07);
     border-radius: 8px;
 }
 .submenu { list-style: none; padding: 0; margin: 0; }
-.submenu a { display: block; padding: 6px 0; font-size: 0.95rem; color: var(--muted); white-space: nowrap; }
+.submenu a { 
+    display: block; padding: 6px 0; font-size: 0.95rem; color: var(--muted); white-space: nowrap;
+    /* 폰트 가이드 적용: 기본 2-Depth는 Regular(400) */
+    font-weight: 400;
+}
 .submenu a:hover { color: var(--brand); }
 
+/* 폰트 가이드 적용: 사업영역 2-Depth는 Medium(500) */
+/* 현행 메뉴 구조상 두 번째(.submenu:nth-of-type(2)) 목록에 적용 */
+.submenu-wrapper .submenu:nth-of-type(2) a {
+    font-weight: 500;
+}
 /* 햄버거 메뉴 추가 */
 .hamburger-btn {
     display: none; /* 평소에는 숨김 */
@@ -112,6 +144,7 @@ img{max-width:100%;height:auto;display:block}
     display: block; width: 25px; height: 3px; background-color: var(--text);
     margin: 5px 0; transition: all 0.3s;
 }
+
 
 /* --- PAGE SPECIFIC STYLES --- */
 /* greeting.html - 대표 인사말 페이지 전용 스타일 */
@@ -128,8 +161,7 @@ img{max-width:100%;height:auto;display:block}
     margin: 20px 0;
 }
 .section{padding:28px 0}
-.card{border:1px solid var(--line);border-radius:12px;padding:16px;background:#fff; transition: transform 0.2s ease, box-shadow 0.2s ease;}
-.card:hover {transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.07);}
+.card{border:1px solid var(--line);border-radius:12px;padding: 8px 16px 16px 16px;background:#fff; transition: transform 0.2s ease, box-shadow 0.2s ease;}
 .btn{display:inline-block;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:#fff; color: var(--text);}
 .btn.primary{background:var(--brand);color:#fff;border-color:transparent}
 .service-grid {
@@ -148,70 +180,73 @@ img{max-width:100%;height:auto;display:block}
 .service-icon-rect, .service-icon-square { max-height: 100%; }
 .service-icon-rect { height: 48px; width: auto; }
 .service-icon-square { width: 58px; height: 58px; }
-/* --- HERO SLIDER (높이 오류 수정) --- */
-/* styles.css 파일의 HERO SLIDER 섹션 */
-
-.hero-slider{ 
-    position:relative; 
-    overflow:hidden; 
-    min-height: 42vh; 
+/* --- INDEX HERO SECTION (NEW) --- */
+.hero-section {
+    position: relative;
     width: 100%;
-    max-width: 1080px; /* 3. 최대 너비 제한 추가 */
-    margin: 0 auto;   /* 중앙 정렬 */
+    height: 300px; /* Hero 영역 높이 고정 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
-
-/* (이하 .hero-slider 관련 다른 스타일들은 그대로 유지) */
-.hero-slider .hs-track{ 
+.hero-bg {
     position: absolute;
     inset: 0;
-    display:flex; 
-    transition: transform 0.5s ease-in-out; 
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
 }
-.hero-slider .hs-item{ 
-    flex:0 0 100%; 
-    position:relative;
-    height: 100%;
-}
-.hero-slider .hs-bg{ 
-    position:absolute; 
-    inset:0; 
-    background-size:cover; 
-    background-position:center; 
-    z-index:1; 
-}
-.hero-slider .hs-bg::before {
-    content: ''; 
-    position: absolute; 
-    inset: 0; 
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)); 
-    z-index: 2;
-}
-.hero-slider .hs-content{ 
-    position:absolute; 
-    z-index:3; 
-    color:#fff; 
-    text-shadow:0 2px 8px rgba(0,0,0,.35); 
-    padding:20px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    width: 100%;
-}
-.hero-slider .hs-btn {
+.hero-bg::before {
+    content: '';
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 4;
-    background: rgba(255,255,255,0.5);
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
 }
-.hero-slider .prev { left: 20px; }
-.hero-slider .next { right: 20px; }
+.hero-text-slider {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.hts-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.5s ease;
+}
+.hts-item {
+    flex: 0 0 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0,0,0,.4);
+}
+.hts-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    gap: 10px;
+}
+.hts-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.6);
+    cursor: pointer;
+    border: none;
+    padding: 0;
+}
+.hts-dot.active {
+    background: #fff;
+}
 
 .site-footer { 
     background-color: var(--footer-bg); 
@@ -287,37 +322,22 @@ img{max-width:100%;height:auto;display:block}
 .cert-page-subtitle { font-size: 0.9rem; text-align: center; }
 .cert-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(222px, 1fr));
     gap: 0px;
 }
 .cert-item {
-  border: 1px solid var(--line);
-  border-radius: 10px;
   background: #fff;
-  padding: 4px; /* ← 기존 12px → 4px로 축소 */
   text-align: center;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
-.cert-item:hover {
-    transform: translateY(-3px); box-shadow: 0 6px 14px rgba(0,0,0,.07);
-}
+
 .cert-item img {
   width: 100%;
-  height: 220px;
-  object-fit: contain;
+  height: 88%;
   margin: 0 auto 4px; /* ← 기존 10px → 4px로 축소 */
-  background: #fafafa;
-  border: 1px solid #eee;
-  border-radius: 6px;
   cursor: pointer;
 }
-/* .cert-item figcaption {
-    padding: 12px 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-} */
+
 .cert-item .cert-name { display: block; font-size: .9rem; font-weight: bold;
 white-space: nowrap; /* 줄바꿈 방지 */
 }
@@ -328,7 +348,7 @@ white-space: nowrap; /* 줄바꿈 방지 */
 #lightbox {
     position: fixed;
     inset: 0;
-    z-index: 1000;
+    z-index: 200;
     display: none;
 }
 #lightbox.open { display: block; }
@@ -376,12 +396,7 @@ white-space: nowrap; /* 줄바꿈 방지 */
     box-shadow: 0 1px 6px rgba(0,0,0,.2);
 }
 /* cert.html 전용 컨테이너 조정 */
-.container--wide  { max-width: 1240px; }           /* 가로 작업 여유 ↑ */
-.container--tight { padding-left: 10px; padding-right: 10px; } /* 좌우 여백 ↓ */
 
-/* 타일 내부 패딩만 살짝 축소해 이미지 폭 확보 (겉모습은 유지) */
-.cert-item    { padding: 6px; }    /* 기존 12px → 6px */
-.cert-item img{ margin-bottom: 6px; } /* 기존 10px → 6px */
 
 /* 데스크톱에서 타일 자체가 더 넓어지도록 최소폭 상향 (gap은 그대로) */
 @media (min-width: 1081px) {
@@ -390,3 +405,148 @@ white-space: nowrap; /* 줄바꿈 방지 */
     /* 기존 250px → 260px : 칼럼 수는 유지하면서 각 칼럼 폭을 키움 */
   }
 }
+
+/* ... 기존 코드 하단에 추가 ... */
+
+/* --- SUB PAGE VISUAL (FINALIZED) --- */
+
+/* 1. 공통 컨테이너 스타일 */
+.sub-visual {
+    padding: 60px 20px;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sub-visual::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5); /* 어두운 오버레이 */
+}
+.sub-visual-content {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+    width: 100%;
+}
+
+/* 공통 슬라이드 텍스트를 서브비주얼 정중앙에 고정 */
+.sub-visual-content { height: 100%; display: flex; align-items: center; justify-content: center; }
+.svs-track { position: relative; height: 100%; width: 100%; }
+.svs-item { position: absolute; inset: 0; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; transition: opacity .8s ease-in-out; }
+
+
+/* 2. 메인메뉴별 배경 이미지 분류 */
+.body-about .sub-visual { background-image: url('/img/sub-visual/sub-visual.png'); }
+.body-services .sub-visual { background-image: url('/img/sub-visual/sub-visual.png'); }
+.body-technology .sub-visual { background-image: url('/img/sub-visual/sub-visual.png'); }
+.body-support .sub-visual { background-image: url('/img/sub-visual/sub-visual.png'); }
+
+/* 3. 문구 작동 방식별 스타일 (JS 제어) */
+/* JS가 h1, p 태그를 생성하므로, 해당 태그의 기본 스타일을 정의 */
+.sub-visual-content h1 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    line-height: 1.4;
+    margin: 0 0 10px 0;
+}
+.sub-visual-content p {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    opacity: 0.9;
+    margin: 0;
+}
+
+/* '공통' 분류의 슬라이더 아이템 스타일 */
+.svs-item {
+    text-align: center;
+}
+
+/* 1. 기존 .tab-buttons 규칙 수정 */
+.tab-buttons {
+    display: flex;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 16px;
+    justify-content: center; /* <-- 이 줄을 추가합니다 */
+}
+
+/* 2. 페이지 전용 폭 확대 규칙 추가 */
+.page-waste-transport .container {
+    max-width: 1200px; /* <-- 원하는 만큼 폭을 넓힙니다 (예: 1200px) */
+}
+.tab-btn {
+    padding: 10px 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--muted);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px; /* 아래 테두리와 겹치게 */
+}
+.tab-btn.active {
+    color: var(--brand);
+    font-weight: 600;
+    border-bottom-color: var(--brand);
+}
+.tab-content {
+    display: none;
+    width: 900px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.tab-content.active {
+    display: block;
+}
+
+/* --- PAGE SPECIFIC OVERRIDES --- */
+/* services-waste-transport 페이지 전용 스타일 */
+.page-waste-transport .card {
+  border: none;
+}
+.page-waste-transport .card:hover {
+  transform: none;
+  box-shadow: none; /* 기존 그림자 효과도 함께 제거 */
+}
+
+/* ===== GALLERY ===== */
+.gallery-toolbar {
+  display:flex; align-items:center; justify-content:space-between; margin:16px 0; padding:10px 12px;
+}
+.gallery-toolbar select { padding:8px 10px; border:1px solid var(--line); border-radius:10px; }
+
+#galleryContainer.grid-view {
+  display:grid; gap:16px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+.gallery-card { background:var(--card); border:1px solid var(--line); border-radius:16px; overflow:hidden; }
+.gallery-card img { width:100%; display:block; }
+.gallery-card .info { padding:12px; }
+.gallery-card .tit { margin:0 0 6px; font-size:1rem; }
+.gallery-card .meta { margin:0 0 8px; color:var(--muted); font-size:.9rem; }
+.gallery-card .desc { margin:0; font-size:.95rem; }
+
+#galleryContainer.list-view .board { width:100%; }
+.board-head, .board-row {
+  display:grid; grid-template-columns: 140px 1fr 120px; gap:12px; align-items:center;
+}
+.board-head { font-weight:600; color:var(--muted); padding:8px 0; border-bottom:1px solid var(--line); }
+.board-row { padding:12px 0; border-bottom:1px solid var(--line); text-decoration:none; color:inherit; }
+.board-row:hover { background:rgba(0,0,0,.02); }
+.board .col.title { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+@media (max-width: 720px) {
+  .board-head { display:none; }
+  .board-row { grid-template-columns: 1fr; }
+  .board-row .col { display:block; }
+  .board-row .col.date, .board-row .col.tag { font-size:.9rem; color:var(--muted); }
+}
+.sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }

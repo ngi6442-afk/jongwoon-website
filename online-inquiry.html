@@ -6,10 +6,14 @@
   <title>온라인 문의/견적 - 유한회사 종운환경</title>
   <link rel="stylesheet" href="/css/styles.css"/>
 </head>
-<body class="bg-contact">
+<body class="body-about visual-common">
   <a class="skip-link" href="#main">본문으로 건너뛰기</a>
   <header class="include-header"></header>
-  
+
+    <div class="sub-visual">
+        <div class="sub-visual-content"></div>
+    </div>
+      
   <main id="main" class="container">
     <div class="breadcrumbs"><a href="/index.html">홈</a> · <a href="/contact.html">고객지원</a> · 온라인 문의/견적</div>
 
@@ -32,7 +36,15 @@
           <textarea name="message" rows="5" required style="width:100%;padding:10px;border:1px solid var(--line);border-radius:10px"></textarea>
         </label><br><br>
 
-        <button class="btn primary" type="submit">문의 보내기</button>
+        <div class="form-consent">
+          <input type="checkbox" id="privacy-consent" name="privacy-consent" required>
+          <label for="privacy-consent">
+            <a href="/privacy.html" target="_blank">개인정보처리방침</a>에 동의합니다.
+          </label>
+        </div>
+        
+        <button id="submit-btn" class="btn primary" type="submit" disabled>문의 보내기</button>
+      </form>
       </form>
     </section>
   </main>
