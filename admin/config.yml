@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: Jongwoon/jongwoon-website   # 실제 레포 경로 확인
+  repo: ngi6442-afk/jongwoon-website   # 실제 레포 경로 확인
   branch: main
   auth_scope: repo
   open_authoring: false
