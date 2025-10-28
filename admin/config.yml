@@ -1,21 +1,21 @@
 backend:
   name: github
-  repo: <ORG_OR_USER>/<REPO_NAME>   # 예: Jongwoon-Environment/jongwoon-site
-  branch: main                      # 배포 브랜치
-  auth_scope: repo                  # private repo인 경우 필요
+  repo: Jongwoon/jongwoon-site   # 실제 레포 경로 확인
+  branch: main
+  auth_scope: repo
   open_authoring: false
   commit_messages:
     create: "📸 새 갤러리 등록: {{slug}}"
     update: "✏️ 갤러리 수정: {{slug}}"
     delete: "🗑️ 갤러리 삭제: {{slug}}"
 
-media_folder: "img/gallery"      # 업로드된 이미지 저장 경로
+media_folder: "img/gallery"
 public_folder: "/img/gallery"
 
 collections:
   - name: "gallery"
     label: "현장 갤러리"
-    folder: "data/gallery"       # JSON 항목 개별 저장 (확장형 구조)
+    folder: "data/gallery"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     extension: "json"

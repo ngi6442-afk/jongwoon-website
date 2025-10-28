@@ -5,9 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>관리자 - 종운환경</title>
   <meta name="robots" content="noindex" />
-<script src="/js/decap-cms.js"></script>
+
+  <!-- 반드시 수동 초기화 플래그 먼저 -->
+  <script>window.CMS_MANUAL_INIT = true;</script>
+
+  <!-- 로컬에 둔 번들 (한 번만) -->
+  <script src="/js/decap-cms.js"></script>
 </head>
 <body>
-<script src="/js/decap-cms.js"></script>
+  <script>
+    // 명시적으로 초기화
+    DecapCms.init({
+      config: '/admin/config.yml'
+    });
+  </script>
 </body>
 </html>
