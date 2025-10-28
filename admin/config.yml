@@ -15,14 +15,19 @@ public_folder: "/img/gallery"
 collections:
   - name: "gallery"
     label: "현장 갤러리"
-    folder: "data/gallery"
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    extension: "json"
     format: "json"
-    fields:
-      - { label: "제목", name: "title", widget: "string" }
-      - { label: "날짜", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
-      - { label: "태그", name: "tag", widget: "select", options: ["폐기물", "준설", "CCTV", "건설", "석면", "재활용"] }
-      - { label: "설명", name: "description", widget: "text", required: false }
-      - { label: "이미지", name: "image", widget: "image" }
+    files:
+      - label: "현장 갤러리 목록"
+        name: "gallery_list"
+        file: "data/gallery.json"
+        fields:
+          - label: "항목"
+            name: "items"
+            widget: "list"
+            collapsed: true
+            fields:
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "날짜", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+              - { label: "태그", name: "tag", widget: "select", options: ["폐기물","준설","CCTV","건설","석면","재활용"] }
+              - { label: "설명", name: "description", widget: "text", required: false }
+              - { label: "이미지", name: "image", widget: "image" }

@@ -1,48 +1,41 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
   const container = document.getElementById('galleryContainer');
   const btnGrid = document.getElementById('btnGrid');
   const btnList = document.getElementById('btnList');
   const tagFilter = document.getElementById('tagFilter');
 
-  let items = [];      // 전체 데이터
-  let currentView = 'grid'; // 'grid' | 'list'
-  let currentTag = ''; // 필터 태그
-
-  // 뷰 전환
-  function setView(view) {
-    currentView = view;
-    if (view === 'grid') {
-      container.className = 'grid-view';
-      btnGrid.classList.add('primary'); btnGrid.setAttribute('aria-pressed', 'true');
-      btnList.classList.remove('primary'); btnList.setAttribute('aria-pressed', 'false');
-    } else {
-      container.className = 'list-view';
-      btnList.classList.add('primary'); btnList.setAttribute('aria-pressed', 'true');
-      btnGrid.classList.remove('primary'); btnGrid.setAttribute('aria-pressed', 'false');
-    }
-    render();
-  }
+  let items = [];
+  let view = 'grid';
+  let tag = '';
 
   btnGrid.addEventListener('click', () => setView('grid'));
   btnList.addEventListener('click', () => setView('list'));
+  tagFilter.addEventListener('change', e => { tag = e.target.value; render(); });
 
-  // 필터
-  tagFilter.addEventListener('change', (e) => {
-    currentTag = e.target.value;
+  function setView(v){
+    view = v;
+    container.className = (v === 'grid') ? 'grid-view' : 'list-view';
+    btnGrid.classList.toggle('primary', v==='grid');
+    btnList.classList.toggle('primary', v==='list');
+    btnGrid.setAttribute('aria-pressed', String(v==='grid'));
+    btnList.setAttribute('aria-pressed', String(v==='list'));
     render();
-  });
+  }
 
-  // 데이터 로드
-  fetch('/data/gallery.json')
-    .then(res => res.json())
-    .then(data => { items = data || []; render(); })
-    .catch(err => { console.error('갤러리 로드 오류:', err); container.innerHTML = '<p class="muted">데이터를 불러올 수 없습니다.</p>'; });
+  fetch('/data/gallery.json?nocache=' + Date.now())
+    .then(r => r.json())
+    .then(json => {
+      items = (json && Array.isArray(json.items)) ? json.items : [];
+      // 날짜 내림차순 정렬
+      items.sort((a,b) => (b.date||'').localeCompare(a.date||''));
+      render();
+    })
+    .catch(() => container.innerHTML = '<p class="muted">데이터를 불러올 수 없습니다.</p>');
 
-  function render() {
-    const filtered = currentTag ? items.filter(i => i.tag === currentTag) : items;
-
-    if (currentView === 'grid') {
-      container.innerHTML = filtered.map(toGridCard).join('');
+  function render(){
+    const list = tag ? items.filter(i => i.tag === tag) : items;
+    if (view === 'grid') {
+      container.innerHTML = list.map(card).join('');
     } else {
       container.innerHTML = `
         <div class="board">
@@ -51,38 +44,35 @@ document.addEventListener('DOMContentLoaded', function () {
             <span class="col title">제목</span>
             <span class="col tag">분류</span>
           </div>
-          ${filtered.map(toBoardRow).join('')}
-        </div>
-      `;
+          ${list.map(row).join('')}
+        </div>`;
     }
   }
 
-  function toGridCard(item) {
+  function card(it){
     return `
-      <article class="gallery-card" data-tag="${item.tag}">
-        <a href="${item.image}" class="no-lightbox" target="_blank" rel="noopener">
-          <img src="${item.image}" alt="${escapeHtml(item.title)}">
+      <article class="gallery-card" data-tag="${escape(it.tag||'')}">
+        <a href="${escape(it.image||'')}" target="_blank" rel="noopener">
+          <img src="${escape(it.image||'')}" alt="${escape(it.title||'')}" loading="lazy">
         </a>
         <div class="info">
-          <h3 class="tit">${escapeHtml(item.title)}</h3>
-          <p class="meta"><span>${escapeHtml(item.tag)}</span> · <span>${escapeHtml(item.date)}</span></p>
-          ${item.description ? `<p class="desc">${escapeHtml(item.description)}</p>` : ''}
+          <h3 class="tit">${escape(it.title||'')}</h3>
+          <p class="meta"><span>${escape(it.tag||'')}</span> · <span>${escape(it.date||'')}</span></p>
+          ${it.description ? `<p class="desc">${escape(it.description)}</p>` : ''}
         </div>
-      </article>
-    `;
+      </article>`;
   }
 
-  function toBoardRow(item) {
+  function row(it){
     return `
-      <a class="board-row" href="${item.image}" target="_blank" rel="noopener">
-        <span class="col date">${escapeHtml(item.date)}</span>
-        <span class="col title">${escapeHtml(item.title)}</span>
-        <span class="col tag">${escapeHtml(item.tag)}</span>
-      </a>
-    `;
+      <a class="board-row" href="${escape(it.image||'')}" target="_blank" rel="noopener">
+        <span class="col date">${escape(it.date||'')}</span>
+        <span class="col title">${escape(it.title||'')}</span>
+        <span class="col tag">${escape(it.tag||'')}</span>
+      </a>`;
   }
 
-  function escapeHtml(str) {
-    return String(str || '').replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+  function escape(s){
+    return String(s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
   }
 });
