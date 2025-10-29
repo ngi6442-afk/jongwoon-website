@@ -14,10 +14,10 @@
 </head>
 <body>
   <script>
-    // 명시적으로 초기화
-    DecapCms.init({
-      config: '/admin/config.yml'
-    });
-  </script>
+  DecapCms.init({
+    // 배포시마다 버전번호만 올리면 캐시 완전 무효화
+    config: '/admin/config.yml?v=2025-10-28-01'
+  });
+</script>
 </body>
 </html>
