@@ -13,34 +13,25 @@
 
   <div class="sub-visual"><div class="sub-visual-content"></div></div>
 
-  <main id="main" class="container">
-    <div class="breadcrumbs"><a href="/index.html">홈</a> · 현장 갤러리</div>
-    <h1 class="section-title" style="text-align:center;">현장 갤러리<br><span style="font-size:.8em;">GALLERY</span></h1>
-
-    <!-- 뷰 전환/필터 툴바 -->
-    <div class="gallery-toolbar card">
-      <div class="left">
-        <label class="sr-only" for="tagFilter">분류</label>
-        <select id="tagFilter">
-          <option value="">전체</option>
-          <option value="준설">준설</option> 
-          <option value="석면">석면</option>
-          <option value="건설">건설</option>
-          <option value="폐기물">폐기물</option>
-        </select>
-      </div>
-      <div class="right" role="group" aria-label="뷰 전환">
-        <button id="btnGrid" class="btn small primary" aria-pressed="true">앨범형</button>
-        <button id="btnList" class="btn small" aria-pressed="false">게시판형</button>
-      </div>
+<main id="main" class="container" style="margin-top:24px;">
+  <div class="gallery-toolbar card" style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;margin:0 0 12px;">
+    <select id="tagFilter">
+      <option value="">전체</option>
+      <option value="폐기물">폐기물</option>
+      <option value="준설">준설</option>
+      <option value="CCTV">CCTV</option>
+      <option value="건설">건설</option>
+      <option value="석면">석면</option>
+      <option value="재활용">재활용</option>
+    </select>
+    <div role="group" aria-label="뷰 전환">
+      <button id="btnGrid" class="btn small primary" aria-pressed="true">앨범형</button>
+      <button id="btnList" class="btn small" aria-pressed="false">게시판형</button>
     </div>
+  </div>
+  <div id="galleryContainer" class="grid-view" aria-live="polite"></div>
+</main>
 
-    <!-- 갤러리 컨테이너: 기본 앨범형 -->
-    <div id="galleryContainer" class="grid-view" aria-live="polite"></div>
-  </main>
+<script src="/js/include.js"></script>
+<script src="/js/gallery.js"></script>
 
-  <footer class="include-footer"></footer>
-  <script src="/js/include.js"></script>
-  <script src="/js/gallery.js"></script>
-</body>
-</html>
