@@ -1,5 +1,6 @@
 backend:
   name: github
+  
   repo: ngi6442-afk/jongwoon-website   # 실제 레포 경로 확인
   branch: main
   auth_scope: repo
@@ -31,3 +32,4 @@ collections:
               - { label: "태그", name: "tag", widget: "select", options: ["폐기물","준설","CCTV","건설","석면","재활용"] }
               - { label: "설명", name: "description", widget: "text", required: false }
               - { label: "이미지", name: "image", widget: "image" }
+
