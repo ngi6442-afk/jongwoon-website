@@ -4,3 +4,6 @@ http://*  https://:splat 301!
 # apex(루트) -> www (https로 통일)
 https://jongwoon.co.kr/*  https://www.jongwoon.co.kr/:splat 301!
 http://jongwoon.co.kr/*   https://www.jongwoon.co.kr/:splat 301!
+
+/login        /admin/   301
+/login.html   /admin/   301

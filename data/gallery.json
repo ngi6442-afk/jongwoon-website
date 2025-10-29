@@ -1,16 +1,14 @@
 {
   "items": [
     {
-      "date": "2025-02-27",
-      "title": "구룡포일원 하수준설공사",
+      "title": "구룡포 하수박스 준설공사",
+      "date": "2025-03-28",
       "tag": "준설",
-      "image": "/img/gallery/kakaotalk_20250225_083710352_05.jpg"
-    },
-    {
-      "date": "2025-10-29",
-      "title": "구룡포 하수준설공사",
-      "image": "/img/gallery/kakaotalk_20250324_103801080_02.jpg",
-      "tag": "준설"
+      "description": "현장 개요",
+      "images": [
+        { "src": "/img/gallery/2025-03-28-a.jpg", "caption": "투입" },
+        { "src": "/img/gallery/2025-03-28-b.jpg" }
+      ]
     }
   ]
 }
