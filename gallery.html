@@ -7,11 +7,11 @@
   <meta name="description" content="종운환경의 현장 사진을 앨범형/게시판형으로 전환하여 확인할 수 있습니다.">
   <link rel="stylesheet" href="/css/styles.css"/>
 </head>
-<body class="body-gallery visual-common">
+<body class="body-support visual-common">
   <a class="skip-link" href="#main">본문으로 건너뛰기</a>
-  <header class="include-header"></header>
+  <div class="include-header"></div>
 
-  <div class="sub-visual"><div class="sub-visual-content"></div></div>
+  <div class="sub-visual"><div class="sub-visual-inner sub-visual-content"></div></div>
 
 <main id="main" class="container" style="margin-top:24px;">
   <div class="gallery-toolbar card" style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;margin:0 0 12px;">
@@ -33,5 +33,7 @@
 </main>
 
 <script src="/js/include.js"></script>
+<script src="/js/app.js"></script>      <!-- ← 추가: sub-visual 제어 포함 -->
 <script src="/js/gallery.js"></script>
-
+</body>
+</html>

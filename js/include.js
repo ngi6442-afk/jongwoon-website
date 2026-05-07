@@ -1,21 +1,32 @@
 // js/include.js
 
 document.addEventListener("DOMContentLoaded", function() {
-    // 헤더 삽입 (절대 경로로 수정)
-    const headerEl = document.querySelector('header.include-header');
+    var promises = [];
+
+    // 헤더 삽입
+    var headerEl = document.querySelector('.include-header');
     if (headerEl) {
-        fetch('/header.html') // <--- 슬래시(/) 추가
-            .then(res => res.ok ? res.text() : Promise.reject('header.html not found'))
-            .then(data => headerEl.innerHTML = data)
-            .catch(console.error);
+        promises.push(
+            fetch('/header.html')
+                .then(function(res) { return res.ok ? res.text() : Promise.reject('header.html not found'); })
+                .then(function(data) { headerEl.innerHTML = data; })
+                .catch(console.error)
+        );
     }
 
-    // 푸터 삽입 (절대 경로로 수정)
-    const footerEl = document.querySelector('footer.include-footer');
+    // 푸터 삽입
+    var footerEl = document.querySelector('.include-footer');
     if (footerEl) {
-        fetch('/footer.html') // <--- 슬래시(/) 추가
-            .then(res => res.ok ? res.text() : Promise.reject('footer.html not found'))
-            .then(data => footerEl.innerHTML = data)
-            .catch(console.error);
+        promises.push(
+            fetch('/footer.html')
+                .then(function(res) { return res.ok ? res.text() : Promise.reject('footer.html not found'); })
+                .then(function(data) { footerEl.innerHTML = data; })
+                .catch(console.error)
+        );
     }
+
+    // 모든 include 완료 후 커스텀 이벤트 발행 (A02)
+    Promise.all(promises).then(function() {
+        document.dispatchEvent(new CustomEvent('includesLoaded'));
+    });
 });

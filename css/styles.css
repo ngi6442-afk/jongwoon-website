@@ -1,6 +1,7 @@
 /* --- FONTS --- */
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@800&display=swap');
+
 /* :root 변수 수정 */
 :root {
   --brand: #1A9A6B;
@@ -10,10 +11,19 @@
   --bg-light: #F7F9F8;
   --footer-bg: #2c3e50;
 }
-*{box-sizing:border-box} html,body{margin:0;padding:0}
-body::before { content: ''; display: block; height: 4px; background-color: var(--brand); }
+
+* { box-sizing:border-box; }
+html, body { margin:0; padding:0; }
+
+body::before { 
+  content: ''; 
+  display: block; 
+  height: 4px; 
+  background-color: var(--brand); 
+}
+
 /* Pretendard 폰트 기본 적용 */
-body{
+body {
   font-family: 'Pretendard', system-ui, sans-serif;
   font-size:16px;
   line-height:1.6;
@@ -21,258 +31,329 @@ body{
   background:#fff;
 }
 h1, h2, h3, h4, h5, h6 {
-    font-family: inherit;
+  font-family: inherit;
 }
-a{color:var(--brand);text-decoration:none} a:hover{text-decoration:underline}
-img{max-width:100%;height:auto;display:block}
-.container{max-width:1080px;margin:0 auto;padding:20px}
+a { color:var(--brand); text-decoration:none; }
+a:hover { text-decoration:underline; }
+img { max-width:100%; height:auto; display:block; }
+.container { max-width:1080px; margin:0 auto; padding:20px; }
 .skip-link { display: none; }
 
 /* --- HEADER (최종 수정본) --- */
 
-.topbar{
-  position:sticky; top:0; z-index:10; background: #fff;
+.topbar {
+  position:sticky; 
+  top:0; 
+  z-index:10; 
+  background: #fff;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 .util-bar {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 4px 20px;
-    display: flex;
-    justify-content: flex-end;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 4px 20px;
+  display: flex;
+  justify-content: flex-end;
 }
 .util-nav { font-size: 0.8em; }
 .util-nav a { color: var(--text); margin-left: 15px; }
 
 .main-header-row {
-    max-width: 1080px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    align-items: center;
-    gap: 100px;
-    padding: 10px 20px;
-    position: relative;
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 100px;
+  padding: 10px 20px;
+  position: relative;
 }
 .logo { 
-    display:flex;align-items:center;gap:5px
+  display:flex;align-items:center;gap:5px;
 }
 .logo span {
-    font-family: 'Pretendard', serif;
-    font-weight: 800; /* ExtraBold */
-    font-size: 1.1rem;
-    line-height: 1.4;
-    white-space: nowrap;
-    color: #153485
+  font-family: 'Pretendard', serif;
+  font-weight: 800; /* ExtraBold */
+  font-size: 1.1rem;
+  line-height: 1.4;
+  white-space: nowrap;
+  color: #153485;
 }
-.logo img{ width:80px; height:80px; }
+.logo img { width:80px; height:80px; }
 
 .nav-container {
-    justify-self: stretch; 
-    position: relative;
+  justify-self: stretch; 
+  position: relative;
 }
 .main-nav > ul {
-    list-style: none; margin: 0; 
-    display: grid;
-    /* 조건 5, 7: 4개 열을 항상 동일한 비율로 유연하게 분할 */
-    grid-template-columns: repeat(4, 1fr);
-    /* B-A 간격을 위해 좌우 여백 추가 */
-    padding: 0 25px; 
+  list-style: none; 
+  margin: 0; 
+  display: grid;
+  /* 조건 5, 7: 4개 열을 항상 동일한 비율로 유연하게 분할 */
+  grid-template-columns: repeat(4, 1fr);
+  /* B-A 간격을 위해 좌우 여백 추가 */
+  padding: 0 25px; 
 }
 .main-nav > ul > li > a {
-    display: block; padding: 10px 0;
-    /* 폰트 가이드 적용: GNB는 SemiBold(600) */
-    font-weight: 600;
-    font-size: 17px; color: var(--text);
-    white-space: nowrap; 
-    text-align: left;
+  display: block; 
+  padding: 10px 0;
+  /* 폰트 가이드 적용: GNB는 SemiBold(600) */
+  font-weight: 600;
+  font-size: 17px; 
+  color: var(--text);
+  white-space: nowrap; 
+  text-align: left;
 }
 .nav-container:hover .main-nav a { 
-    color: var(--brand);
+  color: var(--brand);
 }
 .main-nav > ul > li > a.active { 
-    color: var(--brand); box-shadow: 0 2px 0 var(--brand);
+  color: var(--brand); 
+  box-shadow: 0 2px 0 var(--brand);
 }
 
 .submenu-panel {
-    position: absolute; 
-    top: 100%;
-    /* B라인(패널 시작점)을 정렬하기 위해 nav-container 전체에 걸치도록 설정 */
-    left: 0;
-    right: 0;
-    padding-top: 10px;
-    opacity: 0; visibility: hidden;
-    pointer-events: none;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-    transform: translateY(-10px);
+  position: absolute; 
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding-top: 10px;
+  opacity: 0; 
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  transform: translateY(-10px);
 }
 .nav-container:hover .submenu-panel { 
-    opacity: 1; visibility: visible; 
-    transform: translateY(0); 
-    pointer-events: auto; 
+  opacity: 1; 
+  visibility: visible; 
+  transform: translateY(0); 
+  pointer-events: auto; 
 }
 .submenu-wrapper {
-    display: grid;
-    /* 조건 4, 5: 메인 메뉴와 동일한 비율로 설정하여 A라인 일치 */
-    grid-template-columns: repeat(4, 1fr);
-    /* B-A 간격을 위해 메인 메뉴와 동일한 좌우 여백 적용 */
-    padding: 20px 25px;
-    background-color: #fff;
-    border: 1px solid var(--line);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.07);
-    border-radius: 8px;
+  display: grid;
+  /* 조건 4, 5: 메인 메뉴와 동일한 비율로 설정하여 A라인 일치 */
+  grid-template-columns: repeat(4, 1fr);
+  padding: 20px 25px;
+  background-color: #fff;
+  border: 1px solid var(--line);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.07);
+  border-radius: 8px;
 }
 .submenu { list-style: none; padding: 0; margin: 0; }
 .submenu a { 
-    display: block; padding: 6px 0; font-size: 0.95rem; color: var(--muted); white-space: nowrap;
-    /* 폰트 가이드 적용: 기본 2-Depth는 Regular(400) */
-    font-weight: 400;
+  display: block; 
+  padding: 6px 0; 
+  font-size: 0.95rem; 
+  color: var(--muted); 
+  white-space: nowrap;
+  font-weight: 400; /* 2-Depth 기본 Regular */
 }
 .submenu a:hover { color: var(--brand); }
 
-/* 폰트 가이드 적용: 사업영역 2-Depth는 Medium(500) */
-/* 현행 메뉴 구조상 두 번째(.submenu:nth-of-type(2)) 목록에 적용 */
+/* 사업영역 2-Depth는 Medium(500) */
 .submenu-wrapper .submenu:nth-of-type(2) a {
-    font-weight: 500;
+  font-weight: 500;
 }
+
 /* 햄버거 메뉴 추가 */
 .hamburger-btn {
-    display: none; /* 평소에는 숨김 */
-    background: none; border: none; cursor: pointer; padding: 10px; z-index: 1001;
+  display: none; /* 평소에는 숨김 */
+  background: none; 
+  border: none; 
+  cursor: pointer; 
+  padding: 10px; 
+  z-index: 1001;
 }
 .hamburger-btn span {
-    display: block; width: 25px; height: 3px; background-color: var(--text);
-    margin: 5px 0; transition: all 0.3s;
+  display: block; 
+  width: 25px; 
+  height: 3px; 
+  background-color: var(--text);
+  margin: 5px 0; 
+  transition: all 0.3s;
 }
-
 
 /* --- PAGE SPECIFIC STYLES --- */
+
 /* greeting.html - 대표 인사말 페이지 전용 스타일 */
-.greeting-card {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 30px;
-}
+/* .greeting-card: 현재 사용되지 않는 것으로 판단되어 삭제 */
+
 .ceo-banner-photo {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin: 20px 0;
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 20px 0;
 }
-.section{padding:28px 0}
-.card{border:1px solid var(--line);border-radius:12px;padding: 8px 16px 16px 16px;background:#fff; transition: transform 0.2s ease, box-shadow 0.2s ease;}
-.btn{display:inline-block;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:#fff; color: var(--text);}
-.btn.primary{background:var(--brand);color:#fff;border-color:transparent}
+
+.section { padding:28px 0; }
+.card {
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding: 8px 16px 16px 16px;
+  background:#fff; 
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn {
+  display:inline-block;
+  padding:10px 14px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#fff; 
+  color: var(--text);
+}
+.btn.primary {
+  background:var(--brand);
+  color:#fff;
+  border-color:transparent;
+}
+
 .service-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
 }
 .service-grid .card { text-align: center; }
 .icon-wrapper {
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 15px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
 }
 .service-icon-rect, .service-icon-square { max-height: 100%; }
 .service-icon-rect { height: 48px; width: auto; }
 .service-icon-square { width: 58px; height: 58px; }
+
 /* --- INDEX HERO SECTION (NEW) --- */
 .hero-section {
-    position: relative;
-    width: 100%;
-    height: 300px; /* Hero 영역 높이 고정 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+  position: relative;
+  width: 100%;
+  max-width: 1480px;   /* ← 추가: 최대 폭 제한 (값은 필요에 따라 조정) */
+  height: 300px; /* Hero 영역 높이 고정 */
+  margin: 0 auto;      /* ← 추가: 가운데 정렬 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
+/* 메인(index)와 서브페이지 hero 높이 분리 */
+body.bg-main .hero-section {
+  height: 300px; /* 기존 메인 높이 유지 */
+}
+
+/* 서브페이지(hero가 있는 모든 페이지, index 제외) */
+body:not(.bg-main) .hero-section {
+  height: 220px;
+}
+
+/* 모바일에서 hero 전체 높이 축소(선택) */
+@media (max-width: 768px) {
+  body.bg-main .hero-section {
+    height: 240px;
+  }
+  body:not(.bg-main) .hero-section {
+    height: 180px;
+  }
+}
+
 .hero-bg {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center;
-    z-index: 1;
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
 }
 .hero-bg::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.5);
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
 }
 .hero-text-slider {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 .hts-track {
-    display: flex;
-    height: 100%;
-    transition: transform 0.5s ease;
+  display: flex;
+  height: 100%;
+  transition: transform 0.5s ease;
 }
 .hts-item {
-    flex: 0 0 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: #fff;
-    text-shadow: 0 2px 8px rgba(0,0,0,.4);
+  flex: 0 0 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0,0,0,.4);
 }
 .hts-dots {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 3;
-    display: flex;
-    gap: 10px;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  gap: 10px;
 }
 .hts-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.6);
-    cursor: pointer;
-    border: none;
-    padding: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.6);
+  cursor: pointer;
+  border: none;
+  padding: 0;
 }
 .hts-dot.active {
-    background: #fff;
+  background: #fff;
 }
 
 .site-footer { 
-    background-color: var(--footer-bg); 
-    color: #bdc3c7; 
-    padding: 40px 20px; 
-    font-size: 0.9rem; 
+  background-color: var(--footer-bg); 
+  color: #bdc3c7; 
+  padding: 40px 20px; 
+  font-size: 0.9rem; 
 }
-.site-footer .footer-inner { max-width: 1080px; margin: 0 auto; text-align: left; }
+.site-footer .footer-inner { 
+  max-width: 1080px; 
+  margin: 0 auto; 
+  text-align: left; 
+}
 .site-footer .footer-info { margin-bottom: 8px; }
 .site-footer .footer-links { margin-bottom: 20px; }
 .site-footer .footer-copy { 
-    text-align: center; margin-top: 30px; 
-    padding-top: 20px; border-top: 1px solid #4a4a4a; font-size: 0.85rem; 
+  text-align: center; 
+  margin-top: 30px; 
+  padding-top: 20px; 
+  border-top: 1px solid #4a4a4a; 
+  font-size: 0.85rem; 
 }
 .site-footer a { 
-    color: inherit; /* 링크 색상을 부모(회색)와 동일하게 통일 */
-    text-decoration: none; 
+  color: inherit;
+  text-decoration: none; 
 }
 .site-footer a:hover { 
-    color: #fff; /* 마우스 올렸을 때만 밝게 표시 */
-    text-decoration: underline; 
+  color: #fff;
+  text-decoration: underline; 
 }
-.site-footer .sep { color: #7f8c8d; margin: 0 10px;}
+.site-footer .sep { color: #7f8c8d; margin: 0 10px; }
+
 /* 데스크톱 기본: 완전 숨김 */
 .mobile-nav-panel { 
   display: none;
+}
+
+/* 모바일 메뉴 열림 시 body 스크롤 잠금 */
+body.mobile-nav-open {
+  overflow: hidden;
 }
 
 @media (max-width: 1080px) {
@@ -288,10 +369,19 @@ img{max-width:100%;height:auto;display:block}
     grid-template-columns: auto 1fr auto;
   }
 
-  /* 모바일 메뉴 패널: 기본은 숨김 + 화면 밖 대기 */
+  /* 햄버거 → X 애니메이션 */
+  .hamburger-btn.is-active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+  }
+  .hamburger-btn.is-active span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger-btn.is-active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+  }
+
   .mobile-nav-panel {
-    /* display: block;  <-- 이 줄 삭제 */
-    display: none;                /* 기본 숨김 */
+    display: block;
     position: fixed;
     top: 0;
     right: -320px;
@@ -304,9 +394,7 @@ img{max-width:100%;height:auto;display:block}
     z-index: 1000;
     overflow-y: auto;
   }
-  /* 열렸을 때만 보이게 */
   .mobile-nav-panel.is-open {
-    display: block;
     right: 0;
   }
 
@@ -315,133 +403,180 @@ img{max-width:100%;height:auto;display:block}
   .mobile-nav-panel > ul > li > a { font-weight: bold; font-size: 1.3rem; }
   .mobile-nav-panel .submenu { padding: 10px 0 0 15px; }
   .mobile-nav-panel .submenu a { color: var(--muted); font-size: 1rem; line-height: 2; }
+  .mobile-nav-panel .submenu b { display: block; margin-top: 8px; font-size: 0.85rem; color: var(--brand); }
+  .mobile-nav-panel .submenu b:first-child { margin-top: 0; }
+
+  /* 배경 오버레이 */
+  .mobile-nav-backdrop {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 999;
+  }
+  .mobile-nav-backdrop.is-open {
+    display: block;
+  }
 }
 
 /* cert.html - 인증서 갤러리 */
 .cert-page-title { text-align: center; }
 .cert-page-subtitle { font-size: 0.9rem; text-align: center; }
 .cert-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(222px, 1fr));
-    gap: 0px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(222px, 1fr));
+  gap: 0px;
 }
 .cert-item {
   background: #fff;
   text-align: center;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
-
 .cert-item img {
   width: 100%;
   height: 88%;
-  margin: 0 auto 4px; /* ← 기존 10px → 4px로 축소 */
+  margin: 0 auto 4px;
   cursor: pointer;
 }
+.cert-item .cert-name { 
+  display: block; 
+  font-size: .9rem; 
+  font-weight: bold;
+  white-space: nowrap;
+}
+.cert-item .cert-meta { 
+  margin-top: 4px; 
+  font-size: .85rem; 
+  color: var(--muted);
+  white-space: nowrap;
+}
 
-.cert-item .cert-name { display: block; font-size: .9rem; font-weight: bold;
-white-space: nowrap; /* 줄바꿈 방지 */
-}
-.cert-item .cert-meta { margin-top: 4px; font-size: .85rem; color: var(--muted);
-white-space: nowrap; /* 줄바꿈 방지 */
-}
 /* 라이트박스 */
 #lightbox {
-    position: fixed;
-    inset: 0;
-    z-index: 200;
-    display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: none;
 }
 #lightbox.open { display: block; }
 .lb-backdrop {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,.65);
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.65);
 }
 .lb-inner {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-    background: #fff;
-    padding: 12px;
-    border-radius: 8px;
-    max-width: min(90vw, 1100px);
-    max-height: 90vh;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  background: #fff;
+  padding: 12px;
+  border-radius: 8px;
+  max-width: min(90vw, 1100px);
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 #lb-img {
-    max-width: 100%;
-    max-height: 78vh;
-    object-fit: contain;
+  max-width: 100%;
+  max-height: 78vh;
+  object-fit: contain;
 }
 #lb-cap {
-    text-align: center;
-    font-size: .9rem;
-    color: #444;
+  text-align: center;
+  font-size: .9rem;
+  color: #444;
 }
 .lb-close {
-    position: absolute;
-    right: -15px;
-    top: -15px;
-    width: 36px;
-    height: 36px;
-    border: none;
-    border-radius: 50%;
-    background: #fff;
-    cursor: pointer;
-    font-size: 22px;
-    line-height: 36px;
-    box-shadow: 0 1px 6px rgba(0,0,0,.2);
+  position: absolute;
+  right: -15px;
+  top: -15px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 36px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.2);
 }
-/* cert.html 전용 컨테이너 조정 */
 
-
-/* 데스크톱에서 타일 자체가 더 넓어지도록 최소폭 상향 (gap은 그대로) */
+/* 데스크톱에서 타일 자체가 더 넓어지도록 최소폭 상향 */
 @media (min-width: 1081px) {
   .cert-gallery { 
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
-    /* 기존 250px → 260px : 칼럼 수는 유지하면서 각 칼럼 폭을 키움 */
   }
 }
 
-/* ... 기존 코드 하단에 추가 ... */
-
 /* --- SUB PAGE VISUAL (FINALIZED) --- */
-
-/* 1. 공통 컨테이너 스타일 */
+/* 1. 공통 컨테이너 스타일 수정 */
 .sub-visual {
-    padding: 60px 20px;
-    text-align: center;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    min-height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: relative;
+  width: 100%;
+  max-width: 1480px;     /* hero와 동일 폭 제한 */
+  margin: 0 auto;        /* 가운데 정렬 */
+  padding: 60px 20px;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 내부 텍스트 컨테이너는 hero의 .container 역할로 정리 */
+.sub-visual-inner {
+  max-width: 1080px;     /* 실제 본문 그리드와 맞추고 싶으면 1080px 권장 */
+  width: 100%;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.sub-visual-inner h1,
+.sub-visual-inner p {
+    color: #fff;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.4);
 }
 .sub-visual::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.5); /* 어두운 오버레이 */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5); /* 어두운 오버레이 */
 }
 .sub-visual-content {
-    position: relative;
-    z-index: 2;
-    color: #fff;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
-    width: 100%;
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;   /* ← 추가: 세로 방향 배치 */
+  gap: 8px; /* 선택: h1과 p 사이 간격 */
+  align-items: center;
+  justify-content: center;
 }
 
-/* 공통 슬라이드 텍스트를 서브비주얼 정중앙에 고정 */
-.sub-visual-content { height: 100%; display: flex; align-items: center; justify-content: center; }
-.svs-track { position: relative; height: 100%; width: 100%; }
-.svs-item { position: absolute; inset: 0; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; transition: opacity .8s ease-in-out; }
-
+/* 슬라이드용 래퍼 (현재 JS 정적 모드여도 안전하게 유지) */
+.svs-track { 
+  position: relative; 
+  height: 100%; 
+  width: 100%; 
+}
+.svs-item { 
+  position: absolute; 
+  inset: 0; 
+  display: flex; 
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center; 
+  transition: opacity .8s ease-in-out;
+  text-align: center;
+}
 
 /* 2. 메인메뉴별 배경 이미지 분류 */
 .body-about .sub-visual { background-image: url('/img/sub-visual/sub-visual.png'); }
@@ -450,62 +585,56 @@ white-space: nowrap; /* 줄바꿈 방지 */
 .body-support .sub-visual { background-image: url('/img/sub-visual/sub-visual.png'); }
 
 /* 3. 문구 작동 방식별 스타일 (JS 제어) */
-/* JS가 h1, p 태그를 생성하므로, 해당 태그의 기본 스타일을 정의 */
 .sub-visual-content h1 {
-    font-size: 1.8rem;
-    font-weight: 800;
-    line-height: 1.4;
-    margin: 0 0 10px 0;
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1.4;
+  margin: 0 0 10px 0;
 }
 .sub-visual-content p {
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.6;
-    opacity: 0.9;
-    margin: 0;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  opacity: 0.9;
+  margin: 0;
 }
 
-/* '공통' 분류의 슬라이더 아이템 스타일 */
-.svs-item {
-    text-align: center;
-}
-
-/* 1. 기존 .tab-buttons 규칙 수정 */
+/* 탭 UI */
 .tab-buttons {
-    display: flex;
-    border-bottom: 1px solid var(--line);
-    margin-bottom: 16px;
-    justify-content: center; /* <-- 이 줄을 추가합니다 */
+  display: flex;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 16px;
+  justify-content: center;
 }
 
-/* 2. 페이지 전용 폭 확대 규칙 추가 */
+/* 페이지 전용 폭 확대 규칙 */
 .page-waste-transport .container {
-    max-width: 1200px; /* <-- 원하는 만큼 폭을 넓힙니다 (예: 1200px) */
+  max-width: 1200px;
 }
 .tab-btn {
-    padding: 10px 16px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    color: var(--muted);
-    border-bottom: 2px solid transparent;
-    margin-bottom: -1px; /* 아래 테두리와 겹치게 */
+  padding: 10px 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--muted);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
 }
 .tab-btn.active {
-    color: var(--brand);
-    font-weight: 600;
-    border-bottom-color: var(--brand);
+  color: var(--brand);
+  font-weight: 600;
+  border-bottom-color: var(--brand);
 }
 .tab-content {
-    display: none;
-    width: 900px;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
+  display: none;
+  width: 900px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .tab-content.active {
-    display: block;
+  display: block;
 }
 
 /* --- PAGE SPECIFIC OVERRIDES --- */
@@ -515,36 +644,199 @@ white-space: nowrap; /* 줄바꿈 방지 */
 }
 .page-waste-transport .card:hover {
   transform: none;
-  box-shadow: none; /* 기존 그림자 효과도 함께 제거 */
+  box-shadow: none;
 }
 
 /* ===== GALLERY ===== */
-#galleryContainer.grid-view{
-  display:grid; gap:16px;
+#galleryContainer.grid-view {
+  display:grid; 
+  gap:16px;
   grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
 }
-.gallery-card{ background:var(--card); border:1px solid var(--line); border-radius:16px; overflow:hidden; }
-.gallery-card img{ width:100%; display:block; }
-.gallery-card .info{ padding:12px; }
-.gallery-card .tit{ margin:0 0 6px; font-size:1rem; }
-.gallery-card .meta{ margin:0 0 8px; color:var(--muted); font-size:.9rem; }
-.gallery-card .desc{ margin:0; font-size:.95rem; }
+.gallery-card { 
+  background:var(--card); 
+  border:1px solid var(--line); 
+  border-radius:16px; 
+  overflow:hidden;
+  text-decoration:none;
+  color:inherit;
+  display:block;
+}
+.gallery-card img { width:100%; display:block; }
+.gallery-card .info { padding:12px; }
+.gallery-card .tit { margin:0 0 6px; font-size:1rem; }
+.gallery-card .meta { margin:0 0 8px; color:var(--muted); font-size:.9rem; }
+.gallery-card .desc { margin:0; font-size:.95rem; }
 
-#galleryContainer.list-view .board{ width:100%; }
-.board-head, .board-row{ display:grid; grid-template-columns: 140px 1fr 120px; gap:12px; align-items:center; }
-.board-head{ font-weight:600; color:var(--muted); padding:8px 0; border-bottom:1px solid var(--line); }
-.board-row{ padding:12px 0; border-bottom:1px solid var(--line); text-decoration:none; color:inherit; }
-.board-row:hover{ background:rgba(0,0,0,.02); }
-.board .col.title{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+#galleryContainer.list-view .board { width:100%; }
+.board-head, .board-row { 
+  display:grid; 
+  grid-template-columns: 140px 1fr 120px; 
+  gap:12px; 
+  align-items:center; 
+}
+.board-head { 
+  font-weight:600; 
+  color:var(--muted); 
+  padding:8px 0; 
+  border-bottom:1px solid var(--line); 
+}
+.board-row { 
+  padding:12px 0; 
+  border-bottom:1px solid var(--line); 
+  text-decoration:none; 
+  color:inherit; 
+}
+.board-row:hover { 
+  background:rgba(0,0,0,.02); 
+}
+.board .col.title { 
+  overflow:hidden; 
+  text-overflow:ellipsis; 
+  white-space:nowrap; 
+}
 
-.sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
+.sr-only{
+  position:absolute; 
+  width:1px; 
+  height:1px; 
+  padding:0; 
+  margin:-1px; 
+  overflow:hidden; 
+  clip:rect(0,0,0,0); 
+  border:0; 
+}
 @media (max-width:720px){
   .board-head{ display:none; }
   .board-row{ grid-template-columns: 1fr; }
 }
 
-.gallery-card .thumb-strip{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
-.gallery-card .thumb-strip .mini{display:block;width:52px;height:52px;overflow:hidden;border:1px solid var(--line);border-radius:6px}
-.gallery-card .thumb-strip .mini img{width:100%;height:100%;object-fit:cover;display:block}
-.noimage{background:#f3f5f6;height:160px}
+.gallery-card .thumb-strip {
+  display:flex;
+  gap:6px;
+  margin-top:8px;
+  flex-wrap:wrap;
+}
+.gallery-card .thumb-strip .mini {
+  display:block;
+  width:52px;
+  height:52px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:6px;
+}
+.gallery-card .thumb-strip .mini img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.noimage {
+  background:#f3f5f6;
+  height:160px;
+}
 
+/* 서비스 상세 현장갤러리 피드 */
+.svc-gallery-feed {
+  display:grid;
+  gap:16px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  padding:16px 0;
+}
+.svc-gallery-feed .gallery-card {
+  text-decoration:none;
+  color:inherit;
+}
+
+.fleet-grid {
+  display:grid;
+  gap:12px;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+}
+.card.fleet {
+  display:flex;
+  gap:12px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:var(--card);
+  padding:12px;
+}
+.card.fleet .thumb {
+  flex:0 0 120px;
+  height:86px;
+  border-radius:8px;
+  overflow:hidden;
+  background:#f6f7f8;
+}
+.card.fleet .thumb img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.card.fleet .info .tit {
+  margin:0 0 4px;
+}
+.card.fleet .info .tit small {
+  font-weight:400;
+  color:var(--muted);
+}
+.card.fleet .meta {
+  margin:0 0 6px;
+  color:var(--muted);
+  font-size:.9rem;
+}
+.card.fleet .spec {
+  margin:6px 0 0;
+  padding-left:18px;
+}
+/* ===== Floating Consult (Fixed) ===== */
+.fc-wrap{
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 9999;
+}
+
+.fc-main{
+  width: 75px;
+  height: 56px;
+  border-radius: 999px;
+  border: none;
+  background: var(--brand);
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0,0,0,.22);
+}
+
+.fc-panel{
+  position: absolute;
+  right: 0;
+  bottom: 66px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fc-item{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--text);
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 10px 24px rgba(0,0,0,.18);
+}
+
+.fc-item:hover{ text-decoration: none; }
+.fc-kakao{ background: var(--brand); color:#fff; border-color: transparent; }
+
+@media (max-width: 768px){
+  .fc-wrap{ right: 12px; bottom: 12px; }
+  .fc-main{ width: 52px; height: 52px; }
+}

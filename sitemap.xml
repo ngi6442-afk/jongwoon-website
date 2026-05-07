@@ -1,28 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- 1) 홈 -->
   <url><loc>https://www.jongwoon.co.kr/index.html</loc></url>
-  <url><loc>https://www.jongwoon.co.kr/services.html</loc></url>
-  <url><loc>https://www.jongwoon.co.kr/fleet.html</loc></url>
-  <url><loc>https://www.jongwoon.co.kr/industries.html</loc></url>
+
+  <!-- 2) 회사소개 -->
   <url><loc>https://www.jongwoon.co.kr/greeting.html</loc></url>
-  <url><loc>https://www.jongwoon.co.kr/about.html</loc></url>
-  <url><loc>https://www.jongwoon.co.kr/cert.html</loc></url>
-  <url><loc>https://www.jongwoon.co.kr/faq.html</loc></url>
-  <url><loc>https://www.jongwoon.co.kr/contact.html</loc></url>
-  <url><loc>https://www.jongwoon.co.kr/privacy.html</loc></url>
-  <url><loc>https://www.jongwoon.co.kr/terms.html</loc></url>
+  <url><loc>https://www.jongwoon.co.kr/philosophy.html</loc></url>
   <url><loc>https://www.jongwoon.co.kr/history.html</loc></url>
   <url><loc>https://www.jongwoon.co.kr/org.html</loc></url>
-  <url><loc>https://www.jongwoon.co.kr/404.html</loc></url>
+
+  <!-- 3) 사업영역 -->
+  <url><loc>https://www.jongwoon.co.kr/services-dredging.html</loc></url>
+  <url><loc>https://www.jongwoon.co.kr/services-cctv.html</loc></url>
+  <url><loc>https://www.jongwoon.co.kr/services-waste-transport.html</loc></url>
+  <url><loc>https://www.jongwoon.co.kr/services-waste-recycling.html</loc></url>
+  <url><loc>https://www.jongwoon.co.kr/services-demolition.html</loc></url>
+  <url><loc>https://www.jongwoon.co.kr/services-asbestos.html</loc></url>
+
+  <!-- 4) 기술보유 -->
+  <url><loc>https://www.jongwoon.co.kr/cert.html</loc></url>
+  <url><loc>https://www.jongwoon.co.kr/fleet.html</loc></url>
+  <url><loc>https://www.jongwoon.co.kr/equipment.html</loc></url>
+
+  <!-- 5) 고객센터 -->
+  <url><loc>https://www.jongwoon.co.kr/online-inquiry.html</loc></url>
+  <url><loc>https://www.jongwoon.co.kr/faq.html</loc></url>
   <url><loc>https://www.jongwoon.co.kr/gallery.html</loc></url>
   <url><loc>https://www.jongwoon.co.kr/location.html</loc></url>
-  <url><loc>https://www.jongwoon.co.kr/industries.html</loc></url>
-  <url><loc>https://www.jongwoon.co.kr/online-inqiury.html</loc></url>
-  <url><loc>https://www.jongwoon.co.kr/philosophy.html</loc></url>
-  <url><loc>https://www.jongwoon.co.kr/services-asbestos.html</loc></url>
-  <url><loc>https://www.jongwoon.co.kr/services-demolition.html</loc></url>
-  <url><loc>https://www.jongwoon.co.kr/services-dredging.html</loc></url>
-  <url><loc>https://www.jongwoon.co.kr/services-waste-recycling.html</loc></url>
-  <url><loc>https://www.jongwoon.co.kr/services-waste-transport.html</loc></url>
-  <url><loc>https://www.jongwoon.co.kr/services-cctv.html</loc></url>
+
+  <!-- 6) 정책/약관 -->
+  <url><loc>https://www.jongwoon.co.kr/privacy.html</loc></url>
+  <url><loc>https://www.jongwoon.co.kr/terms.html</loc></url>
+  <url><loc>https://www.jongwoon.co.kr/email-collection-refusal.html</loc></url>
 </urlset>
