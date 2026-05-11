@@ -369,10 +369,15 @@ document.addEventListener('DOMContentLoaded', function() {
       return res.json();
     })
     .then(function (data) {
-      var items = Array.isArray(data) ? data : [];
+      var items = Array.isArray(data) ? data : ((data && Array.isArray(data.items)) ? data.items : []);
+
       feeds.forEach(function (el) {
         var tag = el.getAttribute('data-tag');
-        var filtered = items.filter(function (item) { return item.tag === tag; }).slice(0, 4);
+        var limit = Number(el.getAttribute('data-limit')) || 4;
+        var filtered = items.filter(function (item) {
+          return !tag || item.tag === tag;
+        }).slice(0, limit);
+
         renderFeed(el, filtered);
       });
     })
@@ -387,26 +392,47 @@ document.addEventListener('DOMContentLoaded', function() {
       el.innerHTML = '<p class="muted" style="text-align:center;padding:20px 0;">등록된 현장 사진이 없습니다.</p>';
       return;
     }
+
     var html = '';
+
     items.forEach(function (item) {
-      var thumb = (item.images && item.images[0]) || item.image || '';
+      var thumb = '';
+
+      if (Array.isArray(item.images) && item.images.length) {
+        if (typeof item.images[0] === 'string') {
+          thumb = item.images[0];
+        } else if (item.images[0] && item.images[0].src) {
+          thumb = item.images[0].src;
+        }
+      }
+
+      if (!thumb && item.image) {
+        thumb = item.image;
+      }
+
       var thumbHtml = thumb
-        ? '<img src="' + esc(thumb) + '" alt="' + esc(item.title || '') + '">'
+        ? '<img src="' + esc(thumb) + '" alt="' + esc(item.title || '') + '" loading="lazy" decoding="async">'
         : '<div class="noimage"></div>';
 
       html += '<a class="gallery-card" href="' + esc(item.url || '#') + '" target="_blank" rel="noopener noreferrer">'
         + thumbHtml
         + '<div class="info">'
         + '<p class="tit"><b>' + esc(item.title || '') + '</b></p>'
-        + '<p class="meta">' + esc(item.date || '') + '</p>'
-        + '</div></a>';
+        + '<p class="meta">' + esc(item.date || '') + '</p>';
+
+      if (item.description) {
+        html += '<p class="desc">' + esc(item.description) + '</p>';
+      }
+
+      html += '</div></a>';
     });
+
     el.innerHTML = html;
   }
 
   function esc(str) {
     var d = document.createElement('div');
-    d.appendChild(document.createTextNode(str));
+    d.appendChild(document.createTextNode(str || ''));
     return d.innerHTML;
   }
 })();
@@ -544,7 +570,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 })();
 
-// --- Page-Level CMS Renderer (fleet pilot) ---
+// --- Page-Level CMS Renderer (fleet + service detail pilot) ---
 (function () {
   var root = document.querySelector('#page-cms-root[data-page]');
   if (!root) return;
@@ -602,10 +628,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
       root.innerHTML = html;
 
-      var fleetTargets = root.querySelectorAll('[data-cms-fleet-cards="true"]');
-      fleetTargets.forEach(function (target) {
+      initTabs(root);
+
+      root.querySelectorAll('[data-cms-fleet-cards="true"]').forEach(function (target) {
         var source = target.getAttribute('data-source') || 'fleet';
         loadFleetCards(target, source);
+      });
+
+      root.querySelectorAll('[data-cms-gallery-feed="true"]').forEach(function (target) {
+        var tag = target.getAttribute('data-tag') || '';
+        var limit = Number(target.getAttribute('data-limit')) || 4;
+        loadGalleryFeed(target, tag, limit);
       });
     })
     .catch(function (err) {
@@ -639,6 +672,91 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (sec.note) {
           h += '<p class="muted" style="text-align:left;margin-top:20px;margin-left:30px;margin-right:30px;font-size:0.9em;">' + esc(sec.note) + '</p>';
+        }
+
+        h += '</section>';
+        break;
+
+      case 'cards':
+        h += '<section class="section">';
+
+        if (sec.title) {
+          h += '<h2 class="section-title" style="text-align:center;">' + esc(sec.title) + '</h2>';
+        }
+
+        if (sec.body) {
+          h += renderParagraphs(sec.body);
+        }
+
+        h += '<div class="service-grid">';
+
+        (Array.isArray(sec.cards) ? sec.cards : []).forEach(function (card) {
+          h += '<article class="card">';
+          if (card.title) h += '<h3>' + esc(card.title) + '</h3>';
+          if (card.body) h += '<p class="muted">' + esc(card.body).replace(/\n/g, '<br>') + '</p>';
+          h += '</article>';
+        });
+
+        h += '</div></section>';
+        break;
+
+      case 'list':
+        h += '<section class="section">';
+
+        if (sec.title) {
+          h += '<h2 class="section-title" style="text-align:center;">' + esc(sec.title) + '</h2>';
+        }
+
+        if (sec.body) {
+          h += renderParagraphs(sec.body);
+        }
+
+        if (Array.isArray(sec.items) && sec.items.length) {
+          h += '<ul class="list-bulleted" style="margin-top:8px">';
+          sec.items.forEach(function (item) {
+            h += '<li>' + esc(item) + '</li>';
+          });
+          h += '</ul>';
+        }
+
+        h += '</section>';
+        break;
+
+      case 'tabs':
+        h += renderTabsSection(sec);
+        break;
+
+      case 'galleryFeed':
+        h += '<section class="section">';
+
+        if (sec.title) {
+          h += '<h2 class="section-title" style="text-align:center;">' + esc(sec.title) + '</h2>';
+        }
+
+        if (sec.body) {
+          h += renderParagraphs(sec.body);
+        }
+
+        h += '<div class="svc-gallery-feed" data-cms-gallery-feed="true" data-tag="' + esc(sec.tag || '') + '" data-limit="' + esc(sec.limit || 4) + '">';
+        h += '<p class="muted" style="text-align:center;padding:20px 0;">현장 갤러리를 불러오는 중...</p>';
+        h += '</div>';
+
+        h += '</section>';
+        break;
+
+      case 'cta':
+        h += '<section class="section" style="text-align:center;">';
+
+        if (sec.title) {
+          h += '<h2 class="section-title" style="text-align:center;">' + esc(sec.title) + '</h2>';
+        }
+
+        if (sec.body) {
+          h += renderParagraphs(sec.body);
+        }
+
+        if (sec.buttonLabel && sec.buttonHref) {
+          h += '<a class="btn primary" href="' + esc(sec.buttonHref) + '">' + esc(sec.buttonLabel) + '</a>';
         }
 
         h += '</section>';
@@ -687,13 +805,186 @@ document.addEventListener('DOMContentLoaded', function() {
     return h;
   }
 
+  function renderTabsSection(sec) {
+    var tabs = Array.isArray(sec.tabs) ? sec.tabs : [];
+    if (!tabs.length) return '';
+
+    var h = '<section class="section">';
+
+    if (sec.title) {
+      h += '<h2 class="section-title" style="text-align:center;">' + esc(sec.title) + '</h2>';
+    }
+
+    if (sec.body) {
+      h += renderParagraphs(sec.body);
+    }
+
+    h += '<div class="tabs-ui card" style="margin-top:20px;">';
+    h += '<div class="tab-buttons">';
+
+    tabs.forEach(function (tab, index) {
+      h += '<button class="tab-btn' + (index === 0 ? ' active' : '') + '" data-tab="' + esc(tab.id || ('tab-' + index)) + '">' + esc(tab.label || ('탭 ' + (index + 1))) + '</button>';
+    });
+
+    h += '</div>';
+
+    tabs.forEach(function (tab, index) {
+      h += '<div id="' + esc(tab.id || ('tab-' + index)) + '" class="tab-content' + (index === 0 ? ' active' : '') + '">';
+      h += renderTabContent(tab);
+      h += '</div>';
+    });
+
+    h += '</div></section>';
+
+    return h;
+  }
+
+  function renderTabContent(tab) {
+    var h = '';
+
+    if (Array.isArray(tab.tabs) && tab.tabs.length) {
+      h += '<div class="tabs-ui">';
+      h += '<div class="tab-buttons">';
+
+      tab.tabs.forEach(function (subtab, index) {
+        h += '<button class="tab-btn' + (index === 0 ? ' active' : '') + '" data-tab="' + esc(subtab.id || ('subtab-' + index)) + '">' + esc(subtab.label || ('탭 ' + (index + 1))) + '</button>';
+      });
+
+      h += '</div>';
+
+      tab.tabs.forEach(function (subtab, index) {
+        h += '<div id="' + esc(subtab.id || ('subtab-' + index)) + '" class="tab-content' + (index === 0 ? ' active' : '') + '">';
+        h += renderTabContent(subtab);
+        h += '</div>';
+      });
+
+      h += '</div>';
+      return h;
+    }
+
+    if (tab.type === 'galleryFeed' || tab.galleryTag || tab.tag) {
+      h += '<div class="svc-gallery-feed" data-cms-gallery-feed="true" data-tag="' + esc(tab.tag || tab.galleryTag || '') + '" data-limit="' + esc(tab.limit || tab.galleryLimit || 4) + '">';
+      h += '<p class="muted" style="text-align:center;padding:20px 0;">현장 갤러리를 불러오는 중...</p>';
+      h += '</div>';
+      return h;
+    }
+
+    if (tab.image) {
+      h += '<img src="' + esc(tab.image) + '" alt="' + esc(tab.imageAlt || tab.label || '') + '" loading="lazy" decoding="async" style="' + esc(tab.imageStyle || 'width:100%;') + '">';
+    }
+
+    if (tab.body) {
+      h += renderParagraphs(tab.body);
+    }
+
+    if (Array.isArray(tab.items) && tab.items.length) {
+      h += '<ul class="list-bulleted" style="margin-top:8px">';
+      tab.items.forEach(function (item) {
+        h += '<li>' + esc(item) + '</li>';
+      });
+      h += '</ul>';
+    }
+
+    return h;
+  }
+
   function renderParagraphs(body) {
     var h = '';
+
     String(body).split('\n\n').forEach(function (p) {
       if (!p.trim()) return;
       h += '<p class="muted" style="text-align:left;margin-top:30px;margin-left:30px;margin-right:30px;">' + esc(p).replace(/\n/g, '<br>') + '</p>';
     });
+
     return h;
+  }
+
+  function initTabs(scope) {
+    var tabContainers = scope.querySelectorAll('.tabs-ui');
+
+    tabContainers.forEach(function (container) {
+      if (container.dataset.cmsTabsInit === '1') return;
+      container.dataset.cmsTabsInit = '1';
+
+      var tabButtons = container.querySelectorAll(':scope > .tab-buttons > .tab-btn');
+      var tabContents = container.querySelectorAll(':scope > .tab-content');
+
+      tabButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var targetTab = button.getAttribute('data-tab');
+
+          tabButtons.forEach(function (btn) { btn.classList.remove('active'); });
+          tabContents.forEach(function (content) { content.classList.remove('active'); });
+
+          button.classList.add('active');
+
+          var targetContent = container.querySelector(':scope > #' + cssEscape(targetTab));
+          if (targetContent) {
+            targetContent.classList.add('active');
+          }
+        });
+      });
+    });
+  }
+
+  function loadGalleryFeed(target, tag, limit) {
+    fetch('/data/gallery.json')
+      .then(function (r) {
+        if (!r.ok) throw new Error('gallery json not found');
+        return r.json();
+      })
+      .then(function (data) {
+        var items = Array.isArray(data) ? data : ((data && Array.isArray(data.items)) ? data.items.slice() : []);
+
+        var filtered = items.filter(function (item) {
+          return !tag || item.tag === tag;
+        }).slice(0, limit || 4);
+
+        if (!filtered.length) {
+          target.innerHTML = '<p class="muted" style="text-align:center;padding:20px 0;">등록된 현장 사진이 없습니다.</p>';
+          return;
+        }
+
+        var h = '';
+
+        filtered.forEach(function (item) {
+          var thumb = '';
+
+          if (Array.isArray(item.images) && item.images.length) {
+            if (typeof item.images[0] === 'string') {
+              thumb = item.images[0];
+            } else if (item.images[0] && item.images[0].src) {
+              thumb = item.images[0].src;
+            }
+          }
+
+          if (!thumb && item.image) {
+            thumb = item.image;
+          }
+
+          var thumbHtml = thumb
+            ? '<img src="' + esc(thumb) + '" alt="' + esc(item.title || '') + '" loading="lazy" decoding="async">'
+            : '<div class="noimage"></div>';
+
+          h += '<a class="gallery-card" href="' + esc(item.url || '#') + '" target="_blank" rel="noopener noreferrer">'
+            + thumbHtml
+            + '<div class="info">'
+            + '<p class="tit"><b>' + esc(item.title || '') + '</b></p>'
+            + '<p class="meta">' + esc(item.date || '') + '</p>';
+
+          if (item.description) {
+            h += '<p class="desc">' + esc(item.description) + '</p>';
+          }
+
+          h += '</div></a>';
+        });
+
+        target.innerHTML = h;
+      })
+      .catch(function (err) {
+        console.warn('galleryFeed 렌더링 실패:', err.message);
+        target.innerHTML = '<p class="muted" style="text-align:center;padding:20px 0;">현장 갤러리를 불러올 수 없습니다.</p>';
+      });
   }
 
   function loadFleetCards(target, source) {
@@ -769,6 +1060,14 @@ document.addEventListener('DOMContentLoaded', function() {
         console.warn('fleetCards 렌더링 실패:', err.message);
         target.innerHTML = '<p class="muted" style="text-align:center;padding:20px;">차량 정보를 불러올 수 없습니다.</p>';
       });
+  }
+
+  function cssEscape(value) {
+    if (window.CSS && typeof window.CSS.escape === 'function') {
+      return window.CSS.escape(value);
+    }
+
+    return String(value || '').replace(/[^a-zA-Z0-9_-]/g, '\\$&');
   }
 
   function esc(str) {
