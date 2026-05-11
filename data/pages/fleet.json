@@ -1,0 +1,19 @@
+{
+  "slug": "fleet",
+  "template": "page-standard",
+  "meta": {
+    "title": "운반차량 현황 - 유한회사 종운환경",
+    "description": "종운환경 운반차량 현황: 압축차, 밀폐형 덤프, 슬러지 운반차, 탱크로리, 진공흡입차. 폐기물관리법 허가, GPS·OBD 모니터링, Allbaro 연동."
+  },
+  "hero": {
+    "title": "운반차량",
+    "subtitle": "WASTE TRANSPORT FLEET",
+    "visible": true
+  },
+  "breadcrumbs": [
+    { "label": "홈", "href": "/index.html" },
+    { "label": "기술보유", "href": "/cert.html" },
+    { "label": "운반차량", "href": "" }
+  ],
+  "sections": []
+}
