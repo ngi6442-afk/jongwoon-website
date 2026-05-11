@@ -543,3 +543,237 @@ document.addEventListener('DOMContentLoaded', function() {
     return d.innerHTML;
   }
 })();
+
+// --- Page-Level CMS Renderer (fleet pilot) ---
+(function () {
+  var root = document.querySelector('#page-cms-root[data-page]');
+  if (!root) return;
+
+  var page = root.getAttribute('data-page');
+  var fallbackHTML = root.innerHTML;
+
+  fetch('/data/pages/' + page + '.json')
+    .then(function (r) {
+      if (!r.ok) throw new Error('page json not found');
+      return r.json();
+    })
+    .then(function (data) {
+      if (data.meta) {
+        if (data.meta.title) document.title = data.meta.title;
+
+        var metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc && data.meta.description) {
+          metaDesc.setAttribute('content', data.meta.description);
+        }
+      }
+
+      var html = '';
+
+      if (Array.isArray(data.breadcrumbs) && data.breadcrumbs.length) {
+        html += '<div class="breadcrumbs">';
+        data.breadcrumbs.forEach(function (b, i) {
+          if (i > 0) html += ' · ';
+          if (b.href) {
+            html += '<a href="' + esc(b.href) + '">' + esc(b.label) + '</a>';
+          } else {
+            html += esc(b.label);
+          }
+        });
+        html += '</div>';
+      }
+
+      if (data.hero && data.hero.visible !== false) {
+        html += '<h1 class="section-title" style="text-align:center;margin-top:47px;">' + esc(data.hero.title || '');
+        if (data.hero.subtitle) {
+          html += '<br><span style="display:inline;font-size:0.7em;">' + esc(data.hero.subtitle) + '</span>';
+        }
+        html += '</h1>';
+      }
+
+      var sections = Array.isArray(data.sections) ? data.sections.slice() : [];
+      sections.sort(function (a, b) {
+        return (Number(a.order) || 0) - (Number(b.order) || 0);
+      });
+
+      sections.forEach(function (sec) {
+        if (sec.visible === false) return;
+        html += renderSection(sec);
+      });
+
+      root.innerHTML = html;
+
+      var fleetTargets = root.querySelectorAll('[data-cms-fleet-cards="true"]');
+      fleetTargets.forEach(function (target) {
+        var source = target.getAttribute('data-source') || 'fleet';
+        loadFleetCards(target, source);
+      });
+    })
+    .catch(function (err) {
+      console.warn('Page-Level CMS 렌더링 실패. 정적 fallback 사용:', err.message);
+      root.innerHTML = fallbackHTML;
+    });
+
+  function renderSection(sec) {
+    var h = '';
+
+    switch (sec.type) {
+      case 'legalText':
+      case 'text':
+        h += '<section class="section">';
+
+        if (sec.title) {
+          h += '<h2 class="section-title" style="text-align:center;">' + esc(sec.title) + '</h2>';
+        }
+
+        if (sec.body) {
+          h += renderParagraphs(sec.body);
+        }
+
+        if (Array.isArray(sec.items) && sec.items.length) {
+          h += '<ul class="list-bulleted" style="margin-top:8px">';
+          sec.items.forEach(function (item) {
+            h += '<li>' + esc(item) + '</li>';
+          });
+          h += '</ul>';
+        }
+
+        if (sec.note) {
+          h += '<p class="muted" style="text-align:left;margin-top:20px;margin-left:30px;margin-right:30px;font-size:0.9em;">' + esc(sec.note) + '</p>';
+        }
+
+        h += '</section>';
+        break;
+
+      case 'tableImage':
+        h += '<section class="section">';
+
+        if (sec.title) {
+          h += '<h2 class="section-title" style="text-align:center;">' + esc(sec.title) + '</h2>';
+        }
+
+        h += '<div class="table-wrap">';
+
+        if (sec.image) {
+          h += '<img src="' + esc(sec.image) + '" alt="' + esc(sec.imageAlt || sec.title || '') + '" loading="lazy" decoding="async">';
+        } else {
+          h += '<div class="fleet-image-placeholder" style="width:100%;min-height:180px;border-radius:12px;background:#f3f5f6;display:flex;align-items:center;justify-content:center;color:var(--muted);">이미지 준비중</div>';
+        }
+
+        h += '</div></section>';
+        break;
+
+      case 'fleetCards':
+        h += '<section class="section">';
+
+        if (sec.title) {
+          h += '<h2 class="section-title" style="text-align:center;">' + esc(sec.title) + '</h2>';
+        }
+
+        if (sec.body) {
+          h += renderParagraphs(sec.body);
+        }
+
+        h += '<div id="cms-fleet-cards" data-cms-fleet-cards="true" data-source="' + esc(sec.source || 'fleet') + '">';
+        h += '<p class="muted" style="text-align:center;padding:20px;">차량 정보를 불러오는 중...</p>';
+        h += '</div>';
+
+        h += '</section>';
+        break;
+
+      default:
+        break;
+    }
+
+    return h;
+  }
+
+  function renderParagraphs(body) {
+    var h = '';
+    String(body).split('\n\n').forEach(function (p) {
+      if (!p.trim()) return;
+      h += '<p class="muted" style="text-align:left;margin-top:30px;margin-left:30px;margin-right:30px;">' + esc(p).replace(/\n/g, '<br>') + '</p>';
+    });
+    return h;
+  }
+
+  function loadFleetCards(target, source) {
+    var dataUrl = source === 'fleet' ? '/data/fleet.json' : '/data/' + source + '.json';
+
+    fetch(dataUrl)
+      .then(function (r) {
+        if (!r.ok) throw new Error('fleet item json not found');
+        return r.json();
+      })
+      .then(function (data) {
+        var items = data && Array.isArray(data.items) ? data.items.slice() : [];
+
+        items.sort(function (a, b) {
+          return (Number(a.order) || 999) - (Number(b.order) || 999);
+        });
+
+        if (!items.length) {
+          target.innerHTML = '<p class="muted" style="text-align:center;padding:20px;">등록된 차량이 없습니다.</p>';
+          return;
+        }
+
+        var h = '';
+        h += '<div class="fleet-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:20px;">';
+
+        items.forEach(function (item) {
+          h += '<div class="fleet-card card" style="padding:16px;border:1px solid var(--line);border-radius:12px;background:#fff;">';
+
+          h += '<div class="fleet-image-wrap" style="width:100%;aspect-ratio:4/3;border-radius:10px;background:#f3f5f6;overflow:hidden;display:flex;align-items:center;justify-content:center;color:var(--muted);margin-bottom:12px;">';
+
+          if (item.image) {
+            h += '<img data-fleet-image="true" src="' + esc(item.image) + '" alt="' + esc(item.title || '') + '" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;">';
+          } else {
+            h += '이미지 준비중';
+          }
+
+          h += '</div>';
+
+          if (item.category) {
+            h += '<span style="display:inline-block;padding:4px 8px;background:#f3f5f6;color:var(--muted);font-size:0.85em;border-radius:999px;margin-bottom:8px;">' + esc(item.category) + '</span>';
+          }
+
+          h += '<h3 style="margin:0 0 8px;font-size:1.15rem;">' + esc(item.title || '차량명 미상') + '</h3>';
+
+          if (item.spec) {
+            h += '<p class="muted" style="margin:0 0 6px;font-size:0.95em;">' + esc(item.spec) + '</p>';
+          }
+
+          if (item.quantity) {
+            h += '<p style="margin:0 0 6px;font-size:0.95em;">보유: ' + esc(item.quantity) + '</p>';
+          }
+
+          if (item.description) {
+            h += '<p class="muted" style="margin:8px 0 0;font-size:0.95em;">' + esc(item.description) + '</p>';
+          }
+
+          h += '</div>';
+        });
+
+        h += '</div>';
+
+        target.innerHTML = h;
+
+        target.querySelectorAll('img[data-fleet-image="true"]').forEach(function (img) {
+          img.addEventListener('error', function () {
+            var wrap = img.parentNode;
+            if (!wrap) return;
+            wrap.innerHTML = '이미지 준비중';
+          });
+        });
+      })
+      .catch(function (err) {
+        console.warn('fleetCards 렌더링 실패:', err.message);
+        target.innerHTML = '<p class="muted" style="text-align:center;padding:20px;">차량 정보를 불러올 수 없습니다.</p>';
+      });
+  }
+
+  function esc(str) {
+    var d = document.createElement('div');
+    d.appendChild(document.createTextNode(str || ''));
+    return d.innerHTML;
+  }
+})();
