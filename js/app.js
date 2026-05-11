@@ -485,3 +485,61 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 })();
+
+// --- Fleet Status Gallery Feed (data/fleet.json 기반 렌더링) ---
+(function () {
+  var board = document.getElementById('fleet-board');
+  if (!board) return;
+
+  fetch('/data/fleet.json')
+    .then(function (res) {
+      if (!res.ok) throw new Error('fleet.json not found');
+      return res.json();
+    })
+    .then(function (data) {
+      var items = (data && Array.isArray(data.items)) ? data.items : [];
+      if (items.length === 0) return; // 데이터가 없으면 기존 정적 콘텐츠 유지
+
+      // order 기준 오름차순 정렬
+      items.sort(function(a, b) {
+        var orderA = typeof a.order === 'number' ? a.order : 999;
+        var orderB = typeof b.order === 'number' ? b.order : 999;
+        return orderA - orderB;
+      });
+
+      var html = '<div class="fleet-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">';
+      
+      items.forEach(function (item) {
+        var imgHtml = item.image
+          ? '<img src="' + esc(item.image) + '" alt="' + esc(item.title || '') + '" style="width:100%; height:auto; border-radius:8px; margin-bottom:12px; object-fit:cover; aspect-ratio:4/3;">'
+          : '<div class="noimage" style="width:100%; height:200px; background:#f5f5f5; border-radius:8px; margin-bottom:12px; display:flex; align-items:center; justify-content:center; color:#999;">이미지 준비중</div>';
+
+        var catHtml  = item.category ? '<span style="display:inline-block; padding:4px 8px; background:#e9ecef; color:#495057; font-size:0.8em; border-radius:4px; margin-bottom:8px;">' + esc(item.category) + '</span>' : '';
+        var specHtml = item.spec ? '<p style="margin:4px 0; font-size:0.9em; color:#555;"><strong>사양:</strong> ' + esc(item.spec) + '</p>' : '';
+        var qtyHtml  = item.quantity ? '<p style="margin:4px 0; font-size:0.9em; color:#555;"><strong>수량:</strong> ' + esc(item.quantity) + '</p>' : '';
+        var descHtml = item.description ? '<p style="margin:8px 0 0; font-size:0.95em; color:#666;">' + esc(item.description) + '</p>' : '';
+
+        html += '<div class="fleet-card" style="border:1px solid #e0e0e0; padding:20px; border-radius:8px; background:#fff; box-shadow:0 2px 4px rgba(0,0,0,0.05);">'
+          + imgHtml
+          + catHtml
+          + '<h3 style="margin:0 0 12px; font-size:1.25em; color:#333;">' + esc(item.title || '차량명 미상') + '</h3>'
+          + specHtml
+          + qtyHtml
+          + descHtml
+          + '</div>';
+      });
+      html += '</div>';
+
+      board.innerHTML = html; // 성공 시 기존 콘텐츠 덮어쓰기
+    })
+    .catch(function (err) {
+      // 에러 시 Console 에러를 방지하고 기존 정적 콘텐츠 유지
+      console.warn('운반차량 현황 렌더링 건너뜀 (정적 데이터 사용):', err.message);
+    });
+
+  function esc(str) {
+    var d = document.createElement('div');
+    d.appendChild(document.createTextNode(str || ''));
+    return d.innerHTML;
+  }
+})();

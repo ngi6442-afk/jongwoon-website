@@ -59,3 +59,23 @@ collections:
               - { label: "카테고리", name: "category", widget: "select", options: ["일반","폐기물","준설","건설","석면"] }
               - { label: "질문", name: "question", widget: "string" }
               - { label: "답변", name: "answer", widget: "text" }
+  - name: "fleet"
+    label: "운반차량 현황"
+    format: "json"
+    files:
+      - label: "운반차량 목록"
+        name: "fleet_list"
+        file: "data/fleet.json"
+        fields:
+          - label: "차량 항목"
+            name: "items"
+            widget: "list"
+            collapsed: true
+            fields:
+              - { label: "분류", name: "category", widget: "string", required: false }
+              - { label: "차량명", name: "title", widget: "string" }
+              - { label: "주요 사양", name: "spec", widget: "string", required: false }
+              - { label: "보유 수량", name: "quantity", widget: "string", required: false }
+              - { label: "설명", name: "description", widget: "text", required: false }
+              - { label: "이미지", name: "image", widget: "image", required: false }
+              - { label: "정렬 순서", name: "order", widget: "number", required: false }
