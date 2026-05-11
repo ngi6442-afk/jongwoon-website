@@ -42,3 +42,20 @@ collections:
                 fields:
                   - { label: "파일", name: "src", widget: "image" }
                   - { label: "캡션", name: "caption", widget: "string", required: false }
+
+  - name: "faq"
+    label: "자주 묻는 질문 (FAQ)"
+    format: "json"
+    files:
+      - label: "FAQ 목록"
+        name: "faq_list"
+        file: "data/faq.json"
+        fields:
+          - label: "FAQ 항목"
+            name: "items"
+            widget: "list"
+            collapsed: true
+            fields:
+              - { label: "카테고리", name: "category", widget: "select", options: ["일반","폐기물","준설","건설","석면"] }
+              - { label: "질문", name: "question", widget: "string" }
+              - { label: "답변", name: "answer", widget: "text" }

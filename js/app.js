@@ -422,15 +422,34 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 })();
 
-// --- FAQ: 렌더 + 검색 ---
+// --- FAQ: 렌더 + 검색 (data/faq.json 기반) ---
 (function () {
   var board = document.getElementById('faq-board');
   var search = document.getElementById('faq-search');
-  if (!board || typeof faqData === 'undefined') return;
+  if (!board) return;
+
+  var faqItems = [];
+
+  // 1) JSON fetch 시도
+  fetch('/data/faq.json')
+    .then(function (res) { return res.ok ? res.json() : Promise.reject(); })
+    .then(function (data) {
+      faqItems = (data && Array.isArray(data.items)) ? data.items : [];
+      render('');
+    })
+    .catch(function () {
+      // 2) fallback: 기존 faq-data.js 전역 변수
+      if (typeof faqData !== 'undefined' && Array.isArray(faqData)) {
+        faqItems = faqData;
+        render('');
+      } else {
+        board.innerHTML = '<p class="muted" style="text-align:center;padding:40px 0;">FAQ 데이터를 불러올 수 없습니다.</p>';
+      }
+    });
 
   function render(keyword) {
     var kw = (keyword || '').trim().toLowerCase();
-    var filtered = faqData.filter(function (item) {
+    var filtered = faqItems.filter(function (item) {
       if (!kw) return true;
       return item.question.toLowerCase().indexOf(kw) !== -1
         || item.answer.toLowerCase().indexOf(kw) !== -1;
@@ -459,8 +478,6 @@ document.addEventListener('DOMContentLoaded', function() {
     d.appendChild(document.createTextNode(str || ''));
     return d.innerHTML;
   }
-
-  render('');
 
   if (search) {
     search.addEventListener('input', function () {
