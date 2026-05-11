@@ -79,3 +79,48 @@ collections:
               - { label: "설명", name: "description", widget: "text", required: false }
               - { label: "이미지", name: "image", widget: "image", required: false }
               - { label: "정렬 순서", name: "order", widget: "number", required: false }
+
+  - name: "pages_core"
+    label: "페이지 관리"
+    format: "json"
+    files:
+      - label: "운반차량 페이지"
+        name: "fleet_page"
+        file: "data/pages/fleet.json"
+        fields:
+          - { label: "슬러그", name: "slug", widget: "hidden", default: "fleet" }
+          - { label: "템플릿", name: "template", widget: "hidden", default: "page-standard" }
+          - label: "메타"
+            name: "meta"
+            widget: "object"
+            fields:
+              - { label: "페이지 제목", name: "title", widget: "string" }
+              - { label: "설명", name: "description", widget: "text", required: false }
+          - label: "히어로"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "부제", name: "subtitle", widget: "string", required: false }
+              - { label: "노출 여부", name: "visible", widget: "boolean", default: true }
+          - label: "브레드크럼"
+            name: "breadcrumbs"
+            widget: "list"
+            fields:
+              - { label: "라벨", name: "label", widget: "string" }
+              - { label: "링크", name: "href", widget: "string", required: false }
+          - label: "섹션"
+            name: "sections"
+            widget: "list"
+            summary: "{{fields.order}}. {{fields.type}} - {{fields.title}}"
+            fields:
+              - { label: "ID", name: "id", widget: "string" }
+              - { label: "타입", name: "type", widget: "select", options: ["legalText","text","tableImage","fleetCards"] }
+              - { label: "제목", name: "title", widget: "string", required: false }
+              - { label: "본문", name: "body", widget: "markdown", required: false }
+              - { label: "이미지", name: "image", widget: "image", required: false }
+              - { label: "이미지 대체텍스트", name: "imageAlt", widget: "text", required: false }
+              - { label: "목록 항목", name: "items", widget: "list", required: false }
+              - { label: "참조 소스", name: "source", widget: "string", required: false }
+              - { label: "노출 여부", name: "visible", widget: "boolean", default: true }
+              - { label: "정렬 순서", name: "order", widget: "number", default: 1 }
