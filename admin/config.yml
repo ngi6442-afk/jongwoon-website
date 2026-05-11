@@ -30,9 +30,7 @@ collections:
               - { label: "날짜",  name: "date",  widget: "datetime", format: "YYYY-MM-DD" }
               - { label: "태그",  name: "tag",   widget: "select", options: ["폐기물","준설","CCTV","건설","석면","재활용"] }
               - { label: "설명",  name: "description", widget: "text", required: false }
-              # 단일 이미지(기존 데이터 호환용)
               - { label: "대표 이미지(단일/선택)", name: "image", widget: "image", required: false }
-              # 다중 이미지(신규)
               - label: "이미지(다중)"
                 name: "images"
                 widget: "list"
@@ -59,6 +57,7 @@ collections:
               - { label: "카테고리", name: "category", widget: "select", options: ["일반","폐기물","준설","건설","석면"] }
               - { label: "질문", name: "question", widget: "string" }
               - { label: "답변", name: "answer", widget: "text" }
+
   - name: "fleet"
     label: "운반차량 현황"
     format: "json"
