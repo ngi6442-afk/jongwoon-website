@@ -1,0 +1,42 @@
+[
+  {
+    "title": "포항 공장 폐기물 수집·운반 현장",
+    "date": "2025-12-15",
+    "tag": "폐기물",
+    "url": "https://blog.naver.com/example/001",
+    "description": "포항 산업단지 내 사업장폐기물 수집·운반 작업 현장입니다.",
+    "images": ["/img/gallery/sample-01.jpg"]
+  },
+  {
+    "title": "아파트 단지 하수관로 준설 작업",
+    "date": "2025-11-20",
+    "tag": "준설",
+    "url": "https://blog.naver.com/example/002",
+    "description": "경북 포항 아파트 단지 하수관로 고압세척 및 준설 현장입니다.",
+    "images": ["/img/gallery/sample-02.jpg"]
+  },
+  {
+    "title": "하수관로 CCTV 정밀조사",
+    "date": "2025-10-08",
+    "tag": "준설",
+    "url": "https://blog.naver.com/example/003",
+    "description": "공공하수도 CCTV 조사 및 결함 판독 작업 현장입니다.",
+    "images": ["/img/gallery/sample-03.jpg"]
+  },
+  {
+    "title": "노후 건축물 해체·철거 현장",
+    "date": "2025-09-15",
+    "tag": "건설",
+    "url": "https://blog.naver.com/example/004",
+    "description": "포항시 노후 상업시설 해체 작업 현장입니다.",
+    "images": ["/img/gallery/sample-04.jpg"]
+  },
+  {
+    "title": "슬레이트 지붕 석면해체·제거",
+    "date": "2025-08-22",
+    "tag": "석면",
+    "url": "https://blog.naver.com/example/005",
+    "description": "축사 슬레이트 석면 해체 및 밀봉 처리 현장입니다.",
+    "images": ["/img/gallery/sample-05.jpg"]
+  }
+]
