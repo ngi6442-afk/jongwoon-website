@@ -762,26 +762,6 @@ document.addEventListener('DOMContentLoaded', function() {
         h += '</section>';
         break;
 
-      case 'image':
-        h += '<section class="section">';
-
-        if (sec.title) {
-          h += '<h2 class="section-title" style="text-align:center;">' + esc(sec.title) + '</h2>';
-        }
-
-        if (sec.body) {
-          h += renderParagraphs(sec.body);
-        }
-
-        if (sec.image) {
-          h += '<img src="' + esc(sec.image) + '" alt="' + esc(sec.imageAlt || sec.title || '') + '" loading="lazy" decoding="async" style="' + esc(sec.imageStyle || 'width:100%;') + '">';
-        } else {
-          h += '<div class="noimage">이미지 준비중</div>';
-        }
-
-        h += '</section>';
-        break;
-
       case 'tableImage':
         h += '<section class="section">';
 
