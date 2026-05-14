@@ -206,3 +206,73 @@ collections:
               - { label: "버튼 링크", name: "buttonHref", widget: "string", required: false }
               - { label: "노출 여부", name: "visible", widget: "boolean", default: true }
               - { label: "정렬 순서", name: "order", widget: "number", default: 1 }
+      - label: "폐기물 종합재활용 페이지"
+        name: "services_waste_recycling_page"
+        file: "data/pages/services-waste-recycling.json"
+        fields:
+          - { label: "슬러그", name: "slug", widget: "hidden", default: "services-waste-recycling" }
+          - { label: "템플릿", name: "template", widget: "hidden", default: "service-detail" }
+
+          - label: "메타"
+            name: "meta"
+            widget: "object"
+            fields:
+              - { label: "페이지 제목", name: "title", widget: "string" }
+              - { label: "설명", name: "description", widget: "text", required: false }
+
+          - label: "히어로"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "부제", name: "subtitle", widget: "string", required: false }
+              - { label: "노출 여부", name: "visible", widget: "boolean", default: true }
+
+          - label: "브레드크럼"
+            name: "breadcrumbs"
+            widget: "list"
+            fields:
+              - { label: "라벨", name: "label", widget: "string" }
+              - { label: "링크", name: "href", widget: "string", required: false }
+
+          - label: "섹션"
+            name: "sections"
+            widget: "list"
+            summary: "{{fields.order}}. {{fields.type}} - {{fields.title}}"
+            fields:
+              - { label: "ID", name: "id", widget: "string" }
+              - { label: "타입", name: "type", widget: "select", options: ["legalText","text","cards","list","tabs","galleryFeed","cta"] }
+              - { label: "제목", name: "title", widget: "string", required: false }
+              - { label: "본문", name: "body", widget: "markdown", required: false }
+              - { label: "목록 항목", name: "items", widget: "list", required: false }
+
+              - label: "탭 항목"
+                name: "tabs"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "탭 ID", name: "id", widget: "string" }
+                  - { label: "탭 라벨", name: "label", widget: "string" }
+                  - { label: "탭 타입", name: "type", widget: "select", options: ["text","image","galleryFeed","nestedTabs"], required: false }
+                  - { label: "탭 본문", name: "body", widget: "markdown", required: false }
+                  - { label: "이미지", name: "image", widget: "image", required: false }
+                  - { label: "이미지 대체텍스트", name: "imageAlt", widget: "text", required: false }
+                  - { label: "이미지 스타일", name: "imageStyle", widget: "string", required: false }
+                  - { label: "태그", name: "tag", widget: "string", required: false }
+                  - { label: "표시 개수", name: "limit", widget: "number", required: false }
+
+                  - label: "하위 탭"
+                    name: "tabs"
+                    widget: "list"
+                    required: false
+                    fields:
+                      - { label: "하위 탭 ID", name: "id", widget: "string" }
+                      - { label: "하위 탭 라벨", name: "label", widget: "string" }
+                      - { label: "하위 탭 본문", name: "body", widget: "markdown", required: false }
+
+              - { label: "태그", name: "tag", widget: "string", required: false }
+              - { label: "표시 개수", name: "limit", widget: "number", required: false }
+              - { label: "버튼 문구", name: "buttonLabel", widget: "string", required: false }
+              - { label: "버튼 링크", name: "buttonHref", widget: "string", required: false }
+              - { label: "노출 여부", name: "visible", widget: "boolean", default: true }
+              - { label: "정렬 순서", name: "order", widget: "number", default: 1 }
