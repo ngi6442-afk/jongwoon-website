@@ -1,0 +1,79 @@
+{
+  "slug": "services-asbestos",
+  "template": "service-detail",
+  "meta": {
+    "title": "석면해체·제거 - 유한회사 종운환경",
+    "description": "고용노동부 등록 석면해체·제거 전문업체. 슬레이트·텍스·단열재 등 석면 함유 자재를 법적 안전 기준에 따라 해체·처리합니다."
+  },
+  "hero": {
+    "title": "석면해체·제거",
+    "subtitle": "ASBESTOS DEMOLITION & REMOVAL",
+    "visible": true
+  },
+  "breadcrumbs": [
+    { "label": "홈", "href": "/index.html" },
+    { "label": "사업영역", "href": "/services-dredging.html" },
+    { "label": "석면해체·제거", "href": "" }
+  ],
+  "sections": [
+    {
+      "id": "intro",
+      "type": "legalText",
+      "title": "",
+      "body": "석면은 세계보건기구(WHO)가 지정한 1급 발암물질로, 호흡 시 심각한 질병을 유발할 수 있습니다. 따라서 석면이 포함된 건축자재의 해체·제거는 반드시 고용노동부에 등록된 전문업체를 통해 엄격한 법적 절차와 안전 기준에 따라 수행되어야 합니다.\n\n관련 법령: 「산업안전보건법」 제119조(석면조사) 건축물이나 설비를 철거하거나 해체하려는 자는 고용노동부장관에게 등록한 기관으로 하여금 해당 건축물이나 설비의 석면 함유 여부, 함유량 등을 조사하게 하여야 한다.\n\n(유)종운환경은 등록된 석면해체·제거 전문업체로서, 작업자의 안전과 주변 환경 보호를 최우선으로 모든 과정을 법규에 따라 완벽하게 처리하며, 신뢰할 수 있는 무석면 환경을 만들어 드립니다.",
+      "visible": true,
+      "order": 1
+    },
+    {
+      "id": "service_tabs",
+      "type": "tabs",
+      "title": "",
+      "tabs": [
+        {
+          "id": "tab-clients",
+          "label": "고객군",
+          "image": "/img/services/client-asbestos.png",
+          "imageAlt": "석면해체·제거 주요 고객군",
+          "imageStyle": "width:100%;"
+        },
+        {
+          "id": "tab-targets",
+          "label": "주요해체대상",
+          "tabs": [
+            {
+              "id": "subtab-roof",
+              "label": "지붕재 (슬레이트)",
+              "body": "과거 축사, 창고, 주택 지붕에 널리 사용된 대표적인 고함량 석면 자재로, 파손 시 비산 위험이 높아 습식 작업 및 원형 보존 해체가 필수입니다."
+            },
+            {
+              "id": "subtab-ceiling",
+              "label": "천장재 (텍스, 밤라이트)",
+              "body": "학교, 사무실, 상가 등 대부분의 건물 천장에 사용된 자재입니다. 작업 시 실내 전체의 밀폐 및 음압 유지가 핵심적인 안전 조치입니다."
+            },
+            {
+              "id": "subtab-insulation",
+              "label": "내장재 (단열재, 보온재 등)",
+              "body": "보일러실, 파이프 등에 사용된 단열재는 석면 함량이 높고 쉽게 부서져 비산성이 매우 높으므로, 최고 수준의 보양 및 제거 기술이 필요합니다."
+            }
+          ]
+        },
+        {
+          "id": "tab-workflow",
+          "label": "업무처리절차",
+          "image": "/img/services/workflow-asbestos.png",
+          "imageAlt": "석면해체·제거 업무처리절차",
+          "imageStyle": "width:100%;"
+        },
+        {
+          "id": "tab-gallery",
+          "label": "현장갤러리",
+          "type": "galleryFeed",
+          "tag": "석면",
+          "limit": 4
+        }
+      ],
+      "visible": true,
+      "order": 2
+    }
+  ]
+}
