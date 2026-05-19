@@ -169,15 +169,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }, false);
 
-  // --- 라이트박스 (캡션 외부 표시 및 두 줄 처리) ---
+  // --- 라이트박스 (캡션 외부 표시 및 두 줄 처리 + aria-hidden 보정) ---
   (function() {
     var box = document.getElementById('lightbox');
     if (!box) return;
 
     var img = document.getElementById('lb-img');
     var cap = document.getElementById('lb-cap');
+    var closeBtn = box.querySelector('.lb-close');
+    var lastTrigger = null;
 
     var open = function(src, name, date) {
+      lastTrigger = document.activeElement;
       img.src = src;
       img.alt = name || '';
 
@@ -190,21 +193,33 @@ document.addEventListener('DOMContentLoaded', function() {
         cap.innerHTML = '';
       }
 
+      box.setAttribute('aria-hidden', 'false');
       box.classList.add('open');
+      if (closeBtn) closeBtn.focus();
     };
 
     var close = function() {
       box.classList.remove('open');
+      box.setAttribute('aria-hidden', 'true');
+      if (lastTrigger && lastTrigger.focus) {
+        try { lastTrigger.focus(); } catch (e) { /* ignore */ }
+      }
+      lastTrigger = null;
     };
 
+    // 정적 fallback용: .gallery .g-item 직접 바인딩
     document.querySelectorAll('.gallery .g-item').forEach(function(a) {
       a.addEventListener('click', function(e) {
         e.preventDefault();
-        open(a.getAttribute('href'), a.dataset.name, a.dataset.date);
+        open(a.getAttribute('href'), a.dataset.name || a.dataset.title || '', a.dataset.date || '');
       });
     });
 
-    box.querySelector('.lb-close').addEventListener('click', close);
+    // CMS 동적 렌더 대응: 전역 open/close를 window에 노출
+    window.__lbOpen = open;
+    window.__lbClose = close;
+
+    closeBtn.addEventListener('click', close);
     box.querySelector('.lb-backdrop').addEventListener('click', close);
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') close();
@@ -1099,14 +1114,8 @@ document.addEventListener('DOMContentLoaded', function() {
     return d.innerHTML;
   }
 
-  // certGallery: CMS 렌더 후 lightbox event delegation
+  // certGallery: CMS 렌더 후 lightbox event delegation (window.__lbOpen 활용)
   function bindCmsLightbox(container) {
-    var box = document.getElementById('lightbox');
-    if (!box) return;
-    var img = document.getElementById('lb-img');
-    var cap = document.getElementById('lb-cap');
-    if (!img || !cap) return;
-
     container.addEventListener('click', function (e) {
       var a = e.target.closest('.g-item');
       if (!a || !container.contains(a)) return;
@@ -1116,19 +1125,9 @@ document.addEventListener('DOMContentLoaded', function() {
       var name = a.dataset.name || a.dataset.title || '';
       var date = a.dataset.date || '';
 
-      img.src = src;
-      img.alt = name;
-
-      if (name) {
-        var dateHtml = date
-          ? '<br><small style="color:#ccc;font-size:0.85em;">' + date + '</small>'
-          : '';
-        cap.innerHTML = name + dateHtml;
-      } else {
-        cap.innerHTML = '';
+      if (typeof window.__lbOpen === 'function') {
+        window.__lbOpen(src, name, date);
       }
-
-      box.classList.add('open');
     });
   }
 })();
