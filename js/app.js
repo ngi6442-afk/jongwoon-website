@@ -836,6 +836,15 @@ document.addEventListener('DOMContentLoaded', function() {
         h += '</div></section>';
         break;
 
+      case 'signature':
+        h += '<section class="section">';
+        h += '<div style="text-align:center;margin-top:50px;margin-bottom:200px;">';
+        h += '<p style="margin:0;font-size:1.1em;">';
+        if (sec.body) h += '<b style="font-size:1.1em;">' + esc(sec.body) + '</b>';
+        if (sec.image) h += ' <img src="' + esc(sec.image) + '" alt="' + esc(sec.imageAlt || '') + '" style="height:3em;vertical-align:middle;margin-left:10px;display:inline-block;">';
+        h += '</p></div></section>';
+        break;
+
       default:
         break;
     }
