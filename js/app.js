@@ -640,6 +640,9 @@ document.addEventListener('DOMContentLoaded', function() {
         var limit = Number(target.getAttribute('data-limit')) || 4;
         loadGalleryFeed(target, tag, limit);
       });
+
+      // certGallery lightbox: event delegation for dynamically rendered .g-item
+      bindCmsLightbox(root);
     })
     .catch(function (err) {
       console.warn('Page-Level CMS 렌더링 실패. 정적 fallback 사용:', err.message);
@@ -796,6 +799,26 @@ document.addEventListener('DOMContentLoaded', function() {
         h += '</div>';
 
         h += '</section>';
+        break;
+
+      case 'certGallery':
+        h += '<section class="section">';
+        if (sec.title) h += '<h2 class="section-title" style="margin-top:32px;text-align:center;">' + esc(sec.title) + '</h2>';
+        h += '<div class="cert-gallery gallery">';
+        if (sec.items && sec.items.length) {
+          sec.items.forEach(function (item) {
+            h += '<figure class="cert-item">';
+            h += '<a class="g-item" href="' + esc(item.image || '') + '" data-name="' + esc(item.name || '') + '" data-date="' + esc(item.date || '') + '">';
+            h += '<img src="' + esc(item.image || '') + '" alt="' + esc(item.alt || item.name || '') + '">';
+            h += '</a>';
+            h += '<figcaption>';
+            h += '<b class="cert-name">' + esc(item.name || '') + '</b>';
+            if (item.date) h += '<div class="cert-meta">' + esc(item.date) + '</div>';
+            h += '</figcaption>';
+            h += '</figure>';
+          });
+        }
+        h += '</div></section>';
         break;
 
       default:
@@ -1074,5 +1097,38 @@ document.addEventListener('DOMContentLoaded', function() {
     var d = document.createElement('div');
     d.appendChild(document.createTextNode(str || ''));
     return d.innerHTML;
+  }
+
+  // certGallery: CMS 렌더 후 lightbox event delegation
+  function bindCmsLightbox(container) {
+    var box = document.getElementById('lightbox');
+    if (!box) return;
+    var img = document.getElementById('lb-img');
+    var cap = document.getElementById('lb-cap');
+    if (!img || !cap) return;
+
+    container.addEventListener('click', function (e) {
+      var a = e.target.closest('.g-item');
+      if (!a || !container.contains(a)) return;
+      e.preventDefault();
+
+      var src = a.getAttribute('href');
+      var name = a.dataset.name || a.dataset.title || '';
+      var date = a.dataset.date || '';
+
+      img.src = src;
+      img.alt = name;
+
+      if (name) {
+        var dateHtml = date
+          ? '<br><small style="color:#ccc;font-size:0.85em;">' + date + '</small>'
+          : '';
+        cap.innerHTML = name + dateHtml;
+      } else {
+        cap.innerHTML = '';
+      }
+
+      box.classList.add('open');
+    });
   }
 })();
