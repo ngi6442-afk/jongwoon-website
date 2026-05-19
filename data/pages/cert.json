@@ -26,17 +26,34 @@
     },
     {
       "id": "cert_env",
-      "type": "text",
+      "type": "certGallery",
       "title": "(유)종운환경",
-      "body": "사업자등록증 (2003-04-11)\n폐기물 종합재활용업 (2022-01-17)\n사업장폐기물 수집·운반업 (2003-05-02)\n건설폐기물 수집·운반업 (2012-11-02)\n지정폐기물 수집·운반업 (2008-09-08)\n생활계폐기물 수집·운반업 (2023-05-01)\n상·하수도설비공사업 (2024-08-22)\n화물자동차 운송사업 (2015-03-24)\n유해화학물질 운반업 (2023-06-28)\n건설기계 대여업 (2021-08-24)\n대기배출시설설치 신고 (2021-12-06)\n발전사업 허가(태양광) (2024-07-26)",
+      "items": [
+        { "name": "사업자등록증", "date": "2003-04-11", "image": "/img/certs/business-registration.jpg", "alt": "사업자등록증 썸네일" },
+        { "name": "폐기물 종합재활용업", "date": "2022-01-17", "image": "/img/certs/permit-waste-comprehensive-recycling.jpg", "alt": "폐기물 종합재활용업 허가 썸네일" },
+        { "name": "사업장폐기물 수집·운반업", "date": "2003-05-02", "image": "/img/certs/permit-waste-industrial-transport.jpg", "alt": "사업장폐기물 수집·운반업 허가 썸네일" },
+        { "name": "건설폐기물 수집·운반업", "date": "2012-11-02", "image": "/img/certs/permit-waste-construction-transport.jpg", "alt": "건설폐기물 수집·운반업 허가 썸네일" },
+        { "name": "지정폐기물 수집·운반업", "date": "2008-09-08", "image": "/img/certs/permit-waste-designated-transport.jpg", "alt": "지정폐기물 수집·운반업 허가 썸네일" },
+        { "name": "생활계폐기물 수집·운반업", "date": "2023-05-01", "image": "/img/certs/permit-waste-household-transport.jpg", "alt": "생활계폐기물 수집·운반업 허가 썸네일" },
+        { "name": "상·하수도설비공사업", "date": "2024-08-22", "image": "/img/certs/registration-water-sewer-construction.jpg", "alt": "상·하수도설비공사업 등록 썸네일" },
+        { "name": "화물자동차 운송사업", "date": "2015-03-24", "image": "/img/certs/permit-freight-transport-business.jpg", "alt": "화물자동차 운송사업 허가 썸네일" },
+        { "name": "유해화학물질 운반업", "date": "2023-06-28", "image": "/img/certs/permit-hazardous-chemicals-transport.jpg", "alt": "유해화학물질 운반업 허가 썸네일" },
+        { "name": "건설기계 대여업", "date": "2021-08-24", "image": "/img/certs/registration-construction-equipment-rental.jpg", "alt": "건설기계 대여업 등록 썸네일" },
+        { "name": "대기배출시설설치 신고", "date": "2021-12-06", "image": "/img/certs/certificate-air-emission-facility.jpg", "alt": "대기배출시설설치 신고 썸네일" },
+        { "name": "발전사업 허가(태양광)", "date": "2024-07-26", "image": "/img/certs/permit-solar-power-generation.jpg", "alt": "발전사업 허가(태양광) 썸네일" }
+      ],
       "visible": true,
       "order": 2
     },
     {
       "id": "cert_const",
-      "type": "text",
+      "type": "certGallery",
       "title": "(주)종운건설",
-      "body": "사업자등록증 (2013-07-10)\n비계·구조물해체공사업 (2013-08-22)\n석면해체·제거업 (2013-09-04)",
+      "items": [
+        { "name": "사업자등록증", "date": "2013-07-10", "image": "/img/certs/business-registration-cont.jpg", "alt": "사업자등록증 썸네일" },
+        { "name": "비계·구조물해체공사업", "date": "2013-08-22", "image": "/img/certs/registration-demolition.jpg", "alt": "비계·구조물해체공사업 등록증 썸네일" },
+        { "name": "석면해체·제거업", "date": "2013-09-04", "image": "/img/certs/registration-asbes.jpg", "alt": "석면해체·제거업자 등록증 썸네일" }
+      ],
       "visible": true,
       "order": 3
     }
