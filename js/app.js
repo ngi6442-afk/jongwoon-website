@@ -658,6 +658,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // certGallery lightbox: event delegation for dynamically rendered .g-item
       bindCmsLightbox(root);
+
+      // mapInfo: CMS 렌더 후 카카오맵 재초기화
+      reinitMap(root);
     })
     .catch(function (err) {
       console.warn('Page-Level CMS 렌더링 실패. 정적 fallback 사용:', err.message);
@@ -843,6 +846,23 @@ document.addEventListener('DOMContentLoaded', function() {
         if (sec.body) h += '<b style="font-size:1.1em;">' + esc(sec.body) + '</b>';
         if (sec.image) h += ' <img src="' + esc(sec.image) + '" alt="' + esc(sec.imageAlt || '') + '" style="height:3em;vertical-align:middle;margin-left:10px;display:inline-block;">';
         h += '</p></div></section>';
+        break;
+
+      case 'mapInfo':
+        h += '<section class="card" style="margin-top:16px;">';
+        if (sec.title) h += '<h3 style="margin-top:0;">' + esc(sec.title) + '</h3>';
+        if (sec.address) h += '<p><b>주소:</b> ' + esc(sec.address) + '</p>';
+        if (sec.mapContainerId) {
+          h += '<div id="' + esc(sec.mapContainerId) + '" data-address="' + esc(sec.address || '') + '" role="application" aria-label="유한회사 종운환경 위치 지도" style="width:100%;height:400px;border-radius:12px;background:#eee;margin:16px 0;display:flex;align-items:center;justify-content:center;color:var(--muted);">지도를 불러오는 중입니다...</div>';
+        }
+        if (sec.buttons && sec.buttons.length) {
+          h += '<p>';
+          sec.buttons.forEach(function (btn) {
+            h += '<a class="btn' + (btn.primary ? ' primary' : '') + '" target="_blank" rel="noopener noreferrer" href="' + esc(btn.href || '#') + '">' + esc(btn.label || '') + '</a> ';
+          });
+          h += '</p>';
+        }
+        h += '</section>';
         break;
 
       default:
@@ -1121,6 +1141,54 @@ document.addEventListener('DOMContentLoaded', function() {
     var d = document.createElement('div');
     d.appendChild(document.createTextNode(str || ''));
     return d.innerHTML;
+  }
+
+  // mapInfo: CMS 렌더 후 카카오맵 재초기화
+  function reinitMap(container) {
+    var mapEl = container.querySelector('#map');
+    if (!mapEl) return;
+    if (typeof kakao === 'undefined' || !kakao.maps || typeof kakao.maps.load !== 'function') return;
+
+    var address = mapEl.getAttribute('data-address') || '경상북도 포항시 남구 서원재로 1';
+
+    kakao.maps.load(function () {
+      try {
+        var geocoder = (kakao.maps.services && kakao.maps.services.Geocoder) ? new kakao.maps.services.Geocoder() : null;
+        var FALLBACK_LAT = 35.9784;
+        var FALLBACK_LNG = 129.3636;
+        var fallbackCenter = new kakao.maps.LatLng(FALLBACK_LAT, FALLBACK_LNG);
+
+        mapEl.innerHTML = '';
+        mapEl.style.display = 'block';
+
+        var map = new kakao.maps.Map(mapEl, { center: fallbackCenter, level: 3 });
+        map.relayout();
+
+        var INFO = '<div style="padding:8px 12px;font-size:13px;line-height:1.4;white-space:nowrap;"><b>유한회사 종운환경</b><br>' + address.replace(/^경상북도\s*/, '경북 ') + '</div>';
+
+        function placeMarker(coords) {
+          map.setCenter(coords);
+          var marker = new kakao.maps.Marker({ position: coords, map: map });
+          var iw = new kakao.maps.InfoWindow({ content: INFO, removable: true });
+          iw.open(map, marker);
+          kakao.maps.event.addListener(marker, 'click', function () { iw.open(map, marker); });
+        }
+
+        if (geocoder) {
+          geocoder.addressSearch(address, function (result, status) {
+            if (status === kakao.maps.services.Status.OK && result.length) {
+              placeMarker(new kakao.maps.LatLng(result[0].y, result[0].x));
+            } else {
+              placeMarker(fallbackCenter);
+            }
+          });
+        } else {
+          placeMarker(fallbackCenter);
+        }
+      } catch (e) {
+        console.warn('[reinitMap] 지도 재초기화 실패:', e.message);
+      }
+    });
   }
 
   // certGallery: CMS 렌더 후 lightbox event delegation (window.__lbOpen 활용)
