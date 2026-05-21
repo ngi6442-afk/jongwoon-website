@@ -148,4 +148,7 @@
   // ── 실행 ──
   initGalleryPage();
   initServiceFeeds();
+
+  // page-level CMS 렌더 후 재초기화용 전역 노출
+  window.__initGalleryPage = initGalleryPage;
 })();
