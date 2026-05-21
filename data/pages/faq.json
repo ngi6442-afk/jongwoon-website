@@ -1,0 +1,29 @@
+{
+  "slug": "faq",
+  "template": "page-standard",
+  "meta": {
+    "title": "자주 묻는 질문 (FAQ) - 유한회사 종운환경",
+    "description": "종운환경 자주 묻는 질문. 수거 가능 품목, 서비스 지역, 비용 산정, 당일 수거, 정기 계약 등 궁금한 점을 확인하세요."
+  },
+  "hero": {
+    "title": "자주 묻는 질문",
+    "subtitle": "",
+    "visible": false
+  },
+  "breadcrumbs": [
+    { "label": "홈", "href": "/index.html" },
+    { "label": "고객센터", "href": "/online-inquiry.html" },
+    { "label": "자주 묻는 질문", "href": "" }
+  ],
+  "sections": [
+    {
+      "id": "faq_list",
+      "type": "faqList",
+      "title": "",
+      "source": "faq",
+      "searchPlaceholder": "궁금한 점을 검색해보세요...",
+      "visible": true,
+      "order": 1
+    }
+  ]
+}
