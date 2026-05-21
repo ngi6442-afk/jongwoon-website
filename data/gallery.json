@@ -1,52 +1,38 @@
 {
-  "items": [
+  "slug": "gallery",
+  "template": "page-standard",
+  "meta": {
+    "title": "현장 갤러리 - 유한회사 종운환경",
+    "description": "종운환경의 현장 사진을 앨범형/게시판형으로 전환하여 확인할 수 있습니다."
+  },
+  "hero": {
+    "title": "현장 갤러리",
+    "subtitle": "",
+    "visible": false
+  },
+  "breadcrumbs": [],
+  "sections": [
     {
-      "title": "포항 산업단지 사업장폐기물 수집·운반",
-      "date": "2025-12-15",
-      "tag": "수집·운반",
-      "url": "https://blog.naver.com/jongwoon1204/224244009894",
-      "description": "포항 산업단지 내 사업장폐기물 수집·운반 작업 현장입니다.",
-      "images": []
-    },
-    {
-      "title": "아파트 단지 하수관로 고압세척 준설",
-      "date": "2025-11-20",
-      "tag": "준설",
-      "url": "https://blog.naver.com/jongwoon1204/224243877448",
-      "description": "경북 포항 아파트 단지 하수관로 고압세척 및 준설 현장입니다.",
-      "images": []
-    },
-    {
-      "title": "공공하수도 CCTV 정밀조사 및 판독",
-      "date": "2025-10-08",
-      "tag": "CCTV",
-      "url": "https://blog.naver.com/jongwoon1204/224238057551",
-      "description": "공공하수도 CCTV 조사 및 결함 판독 작업 현장입니다.",
-      "images": []
-    },
-    {
-      "title": "포항시 노후 상업시설 건축물 해체",
-      "date": "2025-09-15",
-      "tag": "건설",
-      "url": "https://blog.naver.com/jongwoon1204/224237999819",
-      "description": "포항시 노후 상업시설 해체 작업 현장입니다.",
-      "images": []
-    },
-    {
-      "title": "축사 슬레이트 석면해체·제거 작업",
-      "date": "2025-08-22",
-      "tag": "석면",
-      "url": "https://blog.naver.com/jongwoon1204/224237947940",
-      "description": "축사 슬레이트 석면 해체 및 밀봉 처리 현장입니다.",
-      "images": []
-    },
-    {
-      "title": "폐기물 종합재활용 처리 현장",
-      "date": "2025-07-10",
-      "tag": "재활용",
-      "url": "https://blog.naver.com/jongwoon1204/224237056442",
-      "description": "폐기물 종합재활용 처리 현장입니다.",
-      "images": []
+      "id": "gallery_shell",
+      "type": "galleryShell",
+      "title": "",
+      "source": "gallery",
+      "defaultFilter": "",
+      "filters": [
+        { "label": "전체", "value": "" },
+        { "label": "폐기물", "value": "폐기물" },
+        { "label": "준설", "value": "준설" },
+        { "label": "CCTV", "value": "CCTV" },
+        { "label": "건설", "value": "건설" },
+        { "label": "석면", "value": "석면" },
+        { "label": "재활용", "value": "재활용" }
+      ],
+      "views": [
+        { "id": "btnGrid", "label": "앨범형", "default": true },
+        { "id": "btnList", "label": "게시판형", "default": false }
+      ],
+      "visible": true,
+      "order": 1
     }
   ]
 }
