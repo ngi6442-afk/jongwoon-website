@@ -664,6 +664,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // faqList: CMS 렌더 후 FAQ 데이터 재로드 + 검색 바인딩
       reinitFaq(root);
+
+      // galleryShell: CMS 렌더 후 gallery.js 재초기화
+      if (typeof window.__initGalleryPage === 'function') window.__initGalleryPage();
     })
     .catch(function (err) {
       console.warn('Page-Level CMS 렌더링 실패. 정적 fallback 사용:', err.message);
@@ -873,6 +876,27 @@ document.addEventListener('DOMContentLoaded', function() {
         h += '<input type="search" id="faq-search" class="faq-search" placeholder="' + esc(sec.searchPlaceholder || '궁금한 점을 검색해보세요...') + '" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;font-size:1rem;">';
         h += '</div>';
         h += '<div id="faq-board" class="faq-board" style="max-width:680px;margin:16px auto 40px;"></div>';
+        break;
+
+      case 'galleryShell':
+        h += '<div class="gallery-toolbar card" style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;margin:0 0 12px;">';
+        h += '<select id="tagFilter">';
+        if (sec.filters && sec.filters.length) {
+          sec.filters.forEach(function (f) {
+            h += '<option value="' + esc(f.value || '') + '">' + esc(f.label || '') + '</option>';
+          });
+        }
+        h += '</select>';
+        h += '<div role="group" aria-label="뷰 전환">';
+        if (sec.views && sec.views.length) {
+          sec.views.forEach(function (v) {
+            var isPrimary = v.default ? ' primary' : '';
+            var pressed = v.default ? 'true' : 'false';
+            h += '<button id="' + esc(v.id || '') + '" class="btn small' + isPrimary + '" aria-pressed="' + pressed + '">' + esc(v.label || '') + '</button>';
+          });
+        }
+        h += '</div></div>';
+        h += '<div id="galleryContainer" class="grid-view" aria-live="polite"></div>';
         break;
 
       default:
