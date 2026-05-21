@@ -1,0 +1,41 @@
+{
+  "slug": "location",
+  "template": "page-standard",
+  "meta": {
+    "title": "오시는 길 - 유한회사 종운환경",
+    "description": "유한회사 종운환경 본사 오시는 길. 경상북도 포항시 남구 서원재로 1."
+  },
+  "hero": {
+    "title": "오시는 길",
+    "subtitle": "",
+    "visible": false
+  },
+  "breadcrumbs": [
+    { "label": "홈", "href": "/index.html" },
+    { "label": "고객센터", "href": "/online-inquiry.html" },
+    { "label": "오시는 길", "href": "" }
+  ],
+  "sections": [
+    {
+      "id": "map_info",
+      "type": "mapInfo",
+      "title": "📍 오시는 길",
+      "address": "경상북도 포항시 남구 서원재로 1",
+      "mapContainerId": "map",
+      "buttons": [
+        {
+          "label": "네이버 지도로 크게 보기",
+          "href": "https://map.naver.com/p/search/%EC%A2%85%EC%9A%B4%ED%99%98%EA%B2%BD/place/499227851",
+          "primary": true
+        },
+        {
+          "label": "카카오맵으로 길찾기",
+          "href": "https://map.kakao.com/?urlX=1037595.000000803&urlY=698663.0000000284&urlLevel=3&itemId=522901815&q=%EC%A2%85%EC%9A%B4%ED%99%98%EA%B2%BD&srcid=522901815&map_type=TYPE_MAP",
+          "primary": false
+        }
+      ],
+      "visible": true,
+      "order": 1
+    }
+  ]
+}
