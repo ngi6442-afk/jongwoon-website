@@ -661,6 +661,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // mapInfo: CMS 렌더 후 카카오맵 재초기화
       reinitMap(root);
+
+      // faqList: CMS 렌더 후 FAQ 데이터 재로드 + 검색 바인딩
+      reinitFaq(root);
     })
     .catch(function (err) {
       console.warn('Page-Level CMS 렌더링 실패. 정적 fallback 사용:', err.message);
@@ -863,6 +866,13 @@ document.addEventListener('DOMContentLoaded', function() {
           h += '</p>';
         }
         h += '</section>';
+        break;
+
+      case 'faqList':
+        h += '<div class="faq-controls" style="max-width:680px;margin:16px auto 0;">';
+        h += '<input type="search" id="faq-search" class="faq-search" placeholder="' + esc(sec.searchPlaceholder || '궁금한 점을 검색해보세요...') + '" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;font-size:1rem;">';
+        h += '</div>';
+        h += '<div id="faq-board" class="faq-board" style="max-width:680px;margin:16px auto 40px;"></div>';
         break;
 
       default:
@@ -1141,6 +1151,55 @@ document.addEventListener('DOMContentLoaded', function() {
     var d = document.createElement('div');
     d.appendChild(document.createTextNode(str || ''));
     return d.innerHTML;
+  }
+
+  // faqList: CMS 렌더 후 FAQ 데이터 재로드 + 검색 바인딩
+  function reinitFaq(container) {
+    var board = container.querySelector('#faq-board');
+    var search = container.querySelector('#faq-search');
+    if (!board) return;
+
+    var faqItems = [];
+
+    fetch('/data/faq.json')
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+      .then(function (data) {
+        faqItems = (data && Array.isArray(data.items)) ? data.items : [];
+        renderFaq('');
+      })
+      .catch(function () {
+        board.innerHTML = '<p class="muted" style="text-align:center;padding:40px 0;">FAQ 데이터를 불러올 수 없습니다.</p>';
+      });
+
+    function renderFaq(keyword) {
+      var kw = (keyword || '').trim().toLowerCase();
+      var filtered = faqItems.filter(function (item) {
+        if (!kw) return true;
+        return item.question.toLowerCase().indexOf(kw) !== -1
+          || item.answer.toLowerCase().indexOf(kw) !== -1;
+      });
+
+      if (filtered.length === 0) {
+        board.innerHTML = '<p class="muted" style="text-align:center;padding:40px 0;">검색 결과가 없습니다.</p>';
+        return;
+      }
+
+      var h = '';
+      filtered.forEach(function (item) {
+        h += '<details class="card" style="margin-bottom:8px;">'
+          + '<summary style="cursor:pointer;padding:14px 16px;font-weight:600;">'
+          + esc(item.question)
+          + '</summary>'
+          + '<div style="padding:0 16px 14px;color:var(--muted);">'
+          + '<p style="margin:0;">' + esc(item.answer) + '</p>'
+          + '</div></details>';
+      });
+      board.innerHTML = h;
+    }
+
+    if (search) {
+      search.addEventListener('input', function () { renderFaq(search.value); });
+    }
   }
 
   // mapInfo: CMS 렌더 후 카카오맵 재초기화
